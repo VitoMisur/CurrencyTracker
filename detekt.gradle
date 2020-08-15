@@ -1,0 +1,6 @@
+detekt {
+    version = "$detektVersion"
+    input = files("src/main/java")
+    config = files("$project.rootDir/detekt.yml")
+    parallel = true
+}

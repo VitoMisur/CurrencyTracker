@@ -1,0 +1,72 @@
+autoCorrect: false # Not investigated to the end, so better explicitly turn off for now to avoid undesired auto-changes.
+failFast: true
+
+build:
+  maxIssues: 1 # Will fail with issues weight caught >=1
+
+complexity: # This group of rules has a lot of important, better support as much as possible.
+  LargeClass:
+    threshold: 300
+  LongParameterList:
+    threshold: 15
+  NestedBlockDepth:
+    threshold: 5
+  MethodOverloading:
+    threshold: 50
+  TooManyFunctions:
+    thresholdInFiles: 50
+    thresholdInClasses: 25
+  ComplexMethod:
+    threshold: 20
+    ignoreSingleWhenExpression: true
+  ComplexCondition:
+    threshold: 5
+  LabeledExpression:
+    active: false
+
+exceptions:
+  TooGenericExceptionCaught: # There are plenty of spaces where you are willing to catch at least some exception if it's there and log it at least.
+    active: false
+
+performance: # This group of rules has a lot of important, better support as much as possible.
+  SpreadOperator: # For varargs one can use *array to insert vararg as array, what is not recommended, but it too cool to not use it
+    active: false
+
+formatting:
+  NoBlankLineBeforeRbrace:
+    active: false
+  ImportOrdering: # It has no performance issue, and nowadays IDE totally manage it by themselves, so it's rather annoying
+    active: false
+
+style: # This group of rules has a lot of important, better support as much as possible.
+  active: true
+  MaxLineLength:
+    maxLineLength: 150
+  ReturnCount:
+    max: 10
+  NewLineAtEndOfFile: # Disabling this rule as all IDEs and repositories have no problem with that old POSIX rule
+    active: false
+  UnusedPrivateMember: # Disabling this rule as it doesn't work in this RC version
+    active: false
+  DataClassContainsFunctions: # Disabling this rule, because it largely reduces functionality of data classes
+    active: false
+
+comments:
+  UndocumentedPublicClass: # Disabling this rule for now, when structure is not finalized
+    active: false
+  CommentOverPrivateFunction: # There is nothing bad when private method commented
+    active: false
+
+naming:
+  VariableMaxLength:
+    maximumVariableNameLength: 70
+  FunctionMaxLength:
+    maximumFunctionNameLength: 70
+  PackageNaming: # we like camelCase (Kotlin docs as well https://kotlinlang.org/docs/reference/coding-conventions.html#naming-rules)
+    active: false
+
+potential-bugs:
+  UnsafeCast: # doesn't work that well as wanted (sometimes recognizes safe cast as unsafe)
+    active: false
+  LateinitUsage: # majorly decreases usability of the language
+    active: false
