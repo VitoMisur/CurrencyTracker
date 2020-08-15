@@ -1,10 +1,37 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="WelcomeTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="WelcomeTextAppearanceSmall" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorGrey</item>
+    </style>
+
+    <style name="WelcomeTextAppearanceHuge" parent="@android:style/TextAppearance">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="ModalBottomDrawer" parent="BottomDialogTheme">
+        <item name="should_draw_under_status_bar">false</item>
+        <item name="should_draw_content_under_handle_view">false</item>
+        <item name="bottom_sheet_corner_radius">10dp</item>
+        <item name="bottom_sheet_extra_padding">4dp</item>
+        <item name="bottom_drawer_background">@android:color/white</item>
     </style>
 
 </resources>

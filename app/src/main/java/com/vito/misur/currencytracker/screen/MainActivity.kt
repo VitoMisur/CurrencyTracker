@@ -1,7 +1,8 @@
-package com.vito.misur.currencytracker
+package com.vito.misur.currencytracker.screen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.vito.misur.currencytracker.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
