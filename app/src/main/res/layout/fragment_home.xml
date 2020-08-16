@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/favorites"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="24dp"
+        android:contentDescription="@string/icon"
+        android:src="@drawable/ic_favorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorPrimary" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_shape"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/splitGuideLine"
+        app:layout_constraintEnd_toStartOf="@+id/rightGuideLine"
+        app:layout_constraintStart_toEndOf="@+id/leftGuideLine"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/amountToExchange"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:background="@null"
+            android:hint="@string/hint_number"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textAppearance="@style/WelcomeTextAppearanceHuge"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/currencySymbol"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currencySymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textAppearance="@style/WelcomeTextAppearanceHuge"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="USD" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/splitGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.20" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoritesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splitGuideLine"
+        tools:listitem="@layout/home_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
