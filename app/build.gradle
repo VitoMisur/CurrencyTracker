@@ -90,6 +90,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
+    // OKHTTP logger
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingVersion"
+
     // Timber
     implementation "com.jakewharton.timber:timber:$timberVersion"
 

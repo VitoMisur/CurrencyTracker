@@ -10,8 +10,33 @@ import com.github.heyalex.bottomdrawer.BottomDrawerDialog
 import com.github.heyalex.bottomdrawer.BottomDrawerFragment
 import com.github.heyalex.handle.PullHandleView
 import com.vito.misur.currencytracker.R
+import com.vito.misur.currencytracker.adapters.SupportedSymbolsAdapter
+import com.vito.misur.currencytracker.network.data.Currency
+import kotlinx.android.synthetic.main.modal_bottom.*
 
 class ModalBottomFragment : BottomDrawerFragment() {
+
+    companion object {
+        const val SUPPORTED_CURRENCIES_LIST = "news_ticker_latest"
+
+        fun newInstance(supportedSymbols: List<Currency>): ModalBottomFragment {
+            val args = Bundle().apply {
+                putParcelableArrayList(SUPPORTED_CURRENCIES_LIST, ArrayList(supportedSymbols))
+            }
+            return ModalBottomFragment().apply {
+                arguments = args
+            }
+        }
+    }
+
+    private val supportedSymbols: List<Currency> by lazy {
+        arguments?.getParcelableArrayList<Currency>(SUPPORTED_CURRENCIES_LIST)
+            ?: throw IllegalArgumentException("Fragment has to contain list of ${Currency::class.java.simpleName} argument")
+    }
+
+    private val adapter: SupportedSymbolsAdapter by lazy {
+        SupportedSymbolsAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,6 +45,12 @@ class ModalBottomFragment : BottomDrawerFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.modal_bottom, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        currencySearchRecyclerView.adapter = adapter
+        adapter.submitList(supportedSymbols)
     }
 
     override fun configureBottomDrawer(): BottomDrawerDialog {

@@ -8,6 +8,7 @@
     android:animateLayoutChanges="true">
 
     <LinearLayout
+        android:id="@+id/errorHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -45,6 +46,7 @@
         android:paddingBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
         tools:visibility="visible">
 
         <TextView
@@ -124,6 +126,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/confirmAndContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"

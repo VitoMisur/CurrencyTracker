@@ -1,7 +1,7 @@
 package com.vito.misur.currencytracker.screen.home
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import com.vito.misur.currencytracker.screen.base.BaseViewModel
 
 
-class HomeViewModel(application: Application) : AndroidViewModel(application)
+class HomeViewModel(application: Application) : BaseViewModel(application)

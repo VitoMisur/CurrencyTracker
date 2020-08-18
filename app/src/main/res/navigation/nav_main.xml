@@ -11,31 +11,30 @@
         android:name="com.vito.misur.currencytracker.screen.welcome.WelcomeFragment"
         tools:layout="@layout/fragment_welcome">
 
-        <!--        <action-->
-        <!--            android:id="@+id/toFavorites"-->
-        <!--            app:destination="@id/nav_favorites" />-->
+        <action
+            android:id="@+id/toFavorites"
+            app:destination="@id/nav_favorites" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="com.vito.misur.currencytracker.screen.favorites.FavoritesFragment"
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/toHome"
+            app:destination="@id/nav_home" />
 
     </fragment>
 
-    <!--    <fragment
-            android:id="@+id/nav_home"
-            android:name="com.vito.misur.currencytracker.screen.home.HomeFragment"
-            tools:layout="@layout/fragment_home">
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.vito.misur.currencytracker.screen.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
 
-            <action
-                android:id="@+id/toFavorites"
-                app:destination="@id/nav_favorites" />
+        <action
+            android:id="@+id/toFavorites"
+            app:destination="@id/nav_favorites" />
 
-        </fragment>
-
-        <fragment
-            android:id="@+id/nav_favorites"
-            android:name="com.vito.misur.currencytracker.screen.favorites.FavoritesFragment"
-            tools:layout="@layout/fragment_favorites">
-
-            <action
-                android:id="@+id/toHome"
-                app:destination="@id/nav_home" />
-
-        </fragment>-->
+    </fragment>
 </navigation>

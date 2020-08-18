@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.screen.welcome.ModalBottomFragment
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -23,6 +24,10 @@ class HomeFragment : Fragment() {
 
         currencySymbol.setOnClickListener {
             parentFragmentManager.beginTransaction().add(ModalBottomFragment(), "modal").commit()
+        }
+
+        favorites.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.toFavorites())
         }
     }
 }

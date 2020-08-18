@@ -23,7 +23,8 @@ buildscript {
         workVersion = "2.2.0"
         koinVersion = "2.0.1"
         glideVersion = "4.11.0"
-        retrofitVersion = "2.8.1"
+        retrofitVersion = "2.9.0"
+        okhttpLoggingVersion = '4.7.2'
         detektVersion = "1.11.0"
         googleServiceVersion = "4.3.3"
         firebaseAnalyticsVersion = "17.2.1"

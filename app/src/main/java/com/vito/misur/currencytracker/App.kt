@@ -2,11 +2,15 @@ package com.vito.misur.currencytracker
 
 import android.app.Application
 import com.vito.misur.currencytracker.di.appModule
+import com.vito.misur.currencytracker.di.networkModule
+import com.vito.misur.currencytracker.di.repositoryModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
+
+const val baseUrl = "http://data.fixer.io/api/"
 
 class App : Application() {
 
@@ -26,7 +30,13 @@ class App : Application() {
             androidContext(this@App)
             androidLogger()
 
-            modules(appModule)
+            modules(
+                listOf(
+                    appModule(),
+                    networkModule(),
+                    repositoryModule()
+                )
+            )
         }
     }
 
