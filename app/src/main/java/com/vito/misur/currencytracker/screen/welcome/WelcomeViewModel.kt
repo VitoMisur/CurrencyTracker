@@ -1,6 +1,9 @@
 package com.vito.misur.currencytracker.screen.welcome
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.vito.misur.currencytracker.network.data.Currency
 import com.vito.misur.currencytracker.network.welcome.WelcomeRepository
 import com.vito.misur.currencytracker.screen.base.BaseModel
 import com.vito.misur.currencytracker.screen.base.BaseViewModel
@@ -13,6 +16,14 @@ class WelcomeViewModel(
 ) : BaseViewModel(application) {
 
     var isLoading = false
+
+    protected val mainCurrencyMutableLiveData = MutableLiveData<Currency>()
+    val mainCurrencyLiveData: LiveData<Currency>
+        get() = mainCurrencyMutableLiveData
+
+    fun fetchMainCurrency(currency: Currency) {
+        mainCurrencyMutableLiveData.postValue(currency)
+    }
 
     fun fetchSupportedSymbols() {
         isLoading = true

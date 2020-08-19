@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
-import com.vito.misur.currencytracker.screen.welcome.ModalBottomFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -23,7 +22,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currencySymbol.setOnClickListener {
-            parentFragmentManager.beginTransaction().add(ModalBottomFragment(), "modal").commit()
         }
 
         favorites.setOnClickListener {

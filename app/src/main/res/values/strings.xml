@@ -7,4 +7,6 @@
     <string name="connection_required">Connection required\nfor the first run</string>
     <string name="hint">Euro</string>
     <string name="hint_number">123.45</string>
+    <string name="empty_currency_name_placeholder">XXX XXX XXX</string>
+    <string name="empty_currency_symbol_placeholder">XXX</string>
 </resources>

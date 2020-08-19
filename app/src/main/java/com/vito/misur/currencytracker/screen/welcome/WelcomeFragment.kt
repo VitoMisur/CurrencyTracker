@@ -13,11 +13,11 @@ import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.network.data.Currency
 import com.vito.misur.currencytracker.screen.base.BaseModel
 import kotlinx.android.synthetic.main.fragment_welcome.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class WelcomeFragment : Fragment() {
 
-    private val welcomeViewModel: WelcomeViewModel by viewModel()
+    private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +30,19 @@ class WelcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         welcomeViewModel.liveData.observe(viewLifecycleOwner, Observer { render(it) })
+        welcomeViewModel.mainCurrencyLiveData.observe(viewLifecycleOwner, Observer {
+            render(
+                BaseModel.MainCurrencyState(it)
+            )
+        })
         welcomeViewModel.fetchSupportedSymbols()
 
+        initView()
+    }
+
+    private fun initView() {
+        currencyName.text = resources.getString(R.string.empty_currency_name_placeholder)
+        currencySymbol.text = resources.getString(R.string.empty_currency_symbol_placeholder)
         confirmAndContinue.setOnClickListener {
             findNavController().navigate(WelcomeFragmentDirections.toFavorites())
         }
@@ -40,16 +51,10 @@ class WelcomeFragment : Fragment() {
     private fun render(model: BaseModel) {
         when (model) {
             is WelcomeModel.Data -> {
-
                 contentHolder?.visible()
                 errorHolder?.gone()
-                model.currencies.symbols.filterKeys { it == "USD" }.apply {
-                    currencyName.text = keys.first()
-                    currencySymbol.text = values.first()
-                }
-
                 currencyHolder.setOnClickListener {
-                    parentFragmentManager.beginTransaction()
+                    childFragmentManager.beginTransaction()
                         .add(ModalBottomFragment.newInstance(model.currencies.symbols.map {
                             Currency(
                                 it.key,
@@ -66,6 +71,12 @@ class WelcomeFragment : Fragment() {
             }
             is BaseModel.LoadingState -> {
                 errorHolder?.gone()
+            }
+            is BaseModel.MainCurrencyState -> {
+                model.currency.apply {
+                    currencyName.text = name
+                    currencySymbol.text = symbol
+                }
             }
         }
     }

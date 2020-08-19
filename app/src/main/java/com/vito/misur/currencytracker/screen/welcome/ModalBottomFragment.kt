@@ -11,10 +11,14 @@ import com.github.heyalex.bottomdrawer.BottomDrawerFragment
 import com.github.heyalex.handle.PullHandleView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.adapters.SupportedSymbolsAdapter
+import com.vito.misur.currencytracker.callback.ModalCallback
 import com.vito.misur.currencytracker.network.data.Currency
 import kotlinx.android.synthetic.main.modal_bottom.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class ModalBottomFragment : BottomDrawerFragment() {
+class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
+
+    private val sharedWelcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
     companion object {
         const val SUPPORTED_CURRENCIES_LIST = "news_ticker_latest"
@@ -35,7 +39,7 @@ class ModalBottomFragment : BottomDrawerFragment() {
     }
 
     private val adapter: SupportedSymbolsAdapter by lazy {
-        SupportedSymbolsAdapter()
+        SupportedSymbolsAdapter(this)
     }
 
     override fun onCreateView(
@@ -71,5 +75,10 @@ class ModalBottomFragment : BottomDrawerFragment() {
                 layoutParams = params
             }
         }
+    }
+
+    override fun onModalItemClick(currency: Currency) {
+        sharedWelcomeViewModel.fetchMainCurrency(currency)
+        dismissWithBehavior()
     }
 }
