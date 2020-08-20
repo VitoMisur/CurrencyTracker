@@ -5,16 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.joda.time.DateTime
 
-@Entity(tableName = "favoriteCurrency")
+@Entity(tableName = "favorite_currencies")
 data class
 FavoriteCurrency(
     @ColumnInfo(name = "symbol") val symbol: String,
     @ColumnInfo(name = "base_currency") val baseCurrency: String,
     @ColumnInfo(name = "exchange_rate") val exchangeRate: Float,
-    /**
-     * Indicates when the [Invoice] was scanned.
-     */
-    @ColumnInfo(name = "recent_date_time") val scanDate: DateTime = DateTime.now()
+    @ColumnInfo(name = "recent_date_time") val recentDateTime: DateTime = DateTime.now(),
+    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

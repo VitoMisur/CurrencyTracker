@@ -44,6 +44,7 @@
 
         <action
             android:id="@+id/toWelcome"
+            app:destination="@id/nav_welcome"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_main"
             app:popUpToInclusive="true" />

@@ -16,7 +16,7 @@ import kotlinx.android.parcel.Parcelize
 data class Currency(
     @field:SerializedName("symbol") @ColumnInfo(name = "symbol") val symbol: String,
     @field:SerializedName("name") @ColumnInfo(name = "name") val name: String,
-    @field:SerializedName("name") @ColumnInfo(name = "is_main_currency") val isMainCurrency: Boolean = false
+    @ColumnInfo(name = "is_main_currency") val isMainCurrency: Boolean = false
 ) : Parcelable {
     @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
