@@ -16,6 +16,16 @@ class WelcomeRepository private constructor(
     suspend fun insertAll(currencyList: List<Currency>) =
         supportedCurrenciesDao.insertNewCurrencies(currencyList)
 
+    fun getSupportedCurrencies() =
+        supportedCurrenciesDao.getSupportedCurrencies()
+
+    fun getMainCurrency() =
+        supportedCurrenciesDao.getMainCurrency()
+
+    suspend fun fetchMainCurrency(currencyId: Long) {
+        supportedCurrenciesDao.setAsMainCurrency(currencyId)
+    }
+
     companion object {
         // For Singleton instantiation
         @Volatile

@@ -16,7 +16,7 @@ interface CurrencyAPIService {
     fun getLatestExchangeRates(
         @Query("access_key") key: String = accessKey,
         @Query("base") baseCurrencySymbol: String,
-        @Query("symbols") symbols: List<String>
+        @Query("symbols") symbols: List<String>? = null
     ): Deferred<ExchangeRates>
 
     @GET("symbols")

@@ -20,7 +20,7 @@ fun appModule() = module(override = true) {
 
     viewModel { HomeViewModel(get()) }
     viewModel { WelcomeViewModel(get(), get()) }
-    viewModel { FavoritesViewModel(get()/*, get()*/) }
+    viewModel { FavoritesViewModel(get(), get()) }
 }
 
 fun provideSharedPrefs(androidApplication: Application): SharedPreferences =

@@ -78,7 +78,7 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
     }
 
     override fun onModalItemClick(currency: Currency) {
-        sharedWelcomeViewModel.fetchMainCurrency(currency)
+        sharedWelcomeViewModel.fetchMainCurrency(currency.currencyId)
         dismissWithBehavior()
     }
 }

@@ -7,38 +7,7 @@
     android:layout_gravity="center"
     android:animateLayoutChanges="true">
 
-    <LinearLayout
-        android:id="@+id/errorHolder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseCompoundDrawables"
-        tools:visibility="gone">
-
-        <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:contentDescription="@string/icon"
-            android:src="@drawable/ic_alert"
-            app:tint="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/alertText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:gravity="center"
-            android:text="@string/connection_required"
-            android:textAppearance="@style/WelcomeTextAppearanceHuge" />
-
-    </LinearLayout>
+    <include layout="@layout/error_layout" />
 
     <LinearLayout
         android:id="@+id/contentHolder"

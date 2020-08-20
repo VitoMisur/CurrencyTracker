@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f8c0def5c5fae84ccb05d27ddd5629c0",
+    "identityHash": "e8e0e70f6a4801f8e4c802e2264029e1",
     "entities": [
       {
         "tableName": "supported_currency",
@@ -43,8 +43,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "favoriteCurrency",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `symbol` TEXT NOT NULL, `base_currency` TEXT NOT NULL, `exchange_rate` REAL NOT NULL, `recent_date_time` INTEGER NOT NULL)",
+        "tableName": "favorite_currencies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `symbol` TEXT NOT NULL, `base_currency` TEXT NOT NULL, `exchange_rate` REAL NOT NULL, `recent_date_time` INTEGER NOT NULL, `is_favorite` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "favoriteCurrencyId",
@@ -71,8 +71,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "scanDate",
+            "fieldPath": "recentDateTime",
             "columnName": "recent_date_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "is_favorite",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -90,7 +96,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f8c0def5c5fae84ccb05d27ddd5629c0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e8e0e70f6a4801f8e4c802e2264029e1')"
     ]
   }
 }

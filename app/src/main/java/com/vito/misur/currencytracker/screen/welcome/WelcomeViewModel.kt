@@ -2,12 +2,13 @@ package com.vito.misur.currencytracker.screen.welcome
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.vito.misur.currencytracker.network.data.Currency
 import com.vito.misur.currencytracker.network.welcome.WelcomeRepository
 import com.vito.misur.currencytracker.screen.base.BaseModel
 import com.vito.misur.currencytracker.screen.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class WelcomeViewModel(
@@ -15,42 +16,45 @@ class WelcomeViewModel(
     private val repository: WelcomeRepository
 ) : BaseViewModel(application) {
 
-    var isLoading = false
+    val mainCurrencyLiveData: LiveData<Currency?>
+        get() = repository.getMainCurrency()
 
-    protected val mainCurrencyMutableLiveData = MutableLiveData<Currency>()
-    val mainCurrencyLiveData: LiveData<Currency>
-        get() = mainCurrencyMutableLiveData
+    val supportedSymbols: LiveData<List<Currency>>
+        get() = repository.getSupportedCurrencies()
 
-    fun fetchMainCurrency(currency: Currency) {
-        mainCurrencyMutableLiveData.postValue(currency)
+    fun fetchMainCurrency(currencyId: Long) {
+        launch {
+            repository.fetchMainCurrency(currencyId)
+        }.invokeOnCompletion {
+            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
+        }
     }
 
     fun fetchSupportedSymbols() {
-        isLoading = true
-        mutableLiveData.postValue(BaseModel.LoadingState)
+        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
 
         launch {
-            val response = executeSafe {
+            withContext(Dispatchers.IO) {
                 repository.fetchSymbols().let { response ->
-                    if (response.success) {
-                        /* TODO: check if empty and etc */
-                        repository.insertAll(response.symbols.map {
+                    response.takeIf { response.success }?.let { successfulResponse ->
+                        successfulResponse.symbols.map {
                             Currency(
                                 it.key,
                                 it.value
                             )
-                        })
-                        WelcomeModel.Data(response)
-                    } else BaseModel.ErrorState(response.error.info)
+                        }.apply {
+                            if (isNullOrEmpty()) {
+                                stateMutableLiveData.postValue(BaseModel.EmptyState)
+                            } else {
+                                repository.insertAll(this)
+                            }
+                        }
+                    }
+                        ?: stateMutableLiveData.postValue(BaseModel.ErrorState(response.error.type + " / " + response.error.code))
                 }
             }
-
-            response.data.takeIf { response.success }?.let {
-                mutableLiveData.postValue(it)
-            }
-                ?: mutableLiveData.postValue(BaseModel.ErrorState(response.responseException?.localizedMessage))
         }.invokeOnCompletion {
-            isLoading = false
+            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
         }
     }
 }

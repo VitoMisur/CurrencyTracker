@@ -9,4 +9,5 @@
     <string name="hint_number">123.45</string>
     <string name="empty_currency_name_placeholder">XXX XXX XXX</string>
     <string name="empty_currency_symbol_placeholder">XXX</string>
+    <string name="exchange_rate_prefix">≈ %1$f %2$s</string>
 </resources>

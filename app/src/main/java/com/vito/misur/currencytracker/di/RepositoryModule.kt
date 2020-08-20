@@ -11,7 +11,7 @@ import org.koin.dsl.module
 fun repositoryModule() = module {
 
     single { provideWelcomeRepository(get(), get()) }
-    single { FavoritesRepository() }
+    single { provideFavoritesRepository(get(), get()) }
     single { HomeRepository() }
 }
 
@@ -23,3 +23,14 @@ private fun provideWelcomeRepository(
         currencyAPIService,
         AppDatabase.getInstance(app.applicationContext).supportedCurrenciesDao()
     )
+
+private fun provideFavoritesRepository(
+    currencyAPIService: CurrencyAPIService,
+    app: Application
+): FavoritesRepository =
+    FavoritesRepository.getInstance(
+        currencyAPIService,
+        AppDatabase.getInstance(app.applicationContext).favoriteCurrenciesDao(),
+        AppDatabase.getInstance(app.applicationContext).supportedCurrenciesDao()
+    )
+

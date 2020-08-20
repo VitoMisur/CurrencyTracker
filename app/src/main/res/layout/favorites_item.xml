@@ -39,11 +39,13 @@
         tools:text="≈ 25.34 CZK" />
 
     <ImageView
+        android:id="@+id/favoriteImageView"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/ic_heart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/icon"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
