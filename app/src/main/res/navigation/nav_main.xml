@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@+id/nav_welcome">
-
+    app:startDestination="@+id/nav_home">
 
     <fragment
         android:id="@+id/nav_welcome"
@@ -13,7 +12,11 @@
 
         <action
             android:id="@+id/toFavorites"
-            app:destination="@id/nav_favorites" />
+            app:destination="@id/nav_favorites"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_main"
+            app:popUpToInclusive="true" />
+
     </fragment>
 
     <fragment
@@ -23,7 +26,10 @@
 
         <action
             android:id="@+id/toHome"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_home"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_main"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -35,6 +41,12 @@
         <action
             android:id="@+id/toFavorites"
             app:destination="@id/nav_favorites" />
+
+        <action
+            android:id="@+id/toWelcome"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_main"
+            app:popUpToInclusive="true" />
 
     </fragment>
 </navigation>

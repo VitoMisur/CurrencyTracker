@@ -33,6 +33,13 @@ class WelcomeViewModel(
             val response = executeSafe {
                 repository.fetchSymbols().let { response ->
                     if (response.success) {
+                        /* TODO: check if empty and etc */
+                        repository.insertAll(response.symbols.map {
+                            Currency(
+                                it.key,
+                                it.value
+                            )
+                        })
                         WelcomeModel.Data(response)
                     } else BaseModel.ErrorState(response.error.info)
                 }

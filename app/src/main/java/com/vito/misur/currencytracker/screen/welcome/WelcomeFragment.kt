@@ -43,9 +43,6 @@ class WelcomeFragment : Fragment() {
     private fun initView() {
         currencyName.text = resources.getString(R.string.empty_currency_name_placeholder)
         currencySymbol.text = resources.getString(R.string.empty_currency_symbol_placeholder)
-        confirmAndContinue.setOnClickListener {
-            findNavController().navigate(WelcomeFragmentDirections.toFavorites())
-        }
     }
 
     private fun render(model: BaseModel) {
@@ -53,6 +50,12 @@ class WelcomeFragment : Fragment() {
             is WelcomeModel.Data -> {
                 contentHolder?.visible()
                 errorHolder?.gone()
+                confirmAndContinue?.apply {
+                    setImageResource(R.drawable.ic_right)
+                    setOnClickListener {
+                        findNavController().navigate(WelcomeFragmentDirections.toFavorites())
+                    }
+                }
                 currencyHolder.setOnClickListener {
                     childFragmentManager.beginTransaction()
                         .add(ModalBottomFragment.newInstance(model.currencies.symbols.map {
@@ -68,12 +71,20 @@ class WelcomeFragment : Fragment() {
                 contentHolder?.gone()
                 errorHolder?.visible()
                 alertText?.text = model.errorMessage
+                confirmAndContinue?.apply {
+                    visible()
+                    setImageResource(R.drawable.ic_refresh)
+                    setOnClickListener {
+                        welcomeViewModel.fetchSupportedSymbols()
+                    }
+                }
             }
             is BaseModel.LoadingState -> {
                 errorHolder?.gone()
             }
             is BaseModel.MainCurrencyState -> {
                 model.currency.apply {
+                    confirmAndContinue?.visible()
                     currencyName.text = name
                     currencySymbol.text = symbol
                 }
