@@ -39,7 +39,7 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
         favoritesModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
         favoritesModel.availableCurrenciesLiveData.observe(
             viewLifecycleOwner,
-            Observer { render(FavoritesModel.Data(it)) })
+            Observer { render(BaseModel.FavoriteCurrenciesData(it)) })
         favoritesModel.fetchAvailableCurrencies()
 
         initView()
@@ -54,7 +54,7 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
 
     private fun render(model: BaseModel) {
         when (model) {
-            is FavoritesModel.Data -> {
+            is BaseModel.FavoriteCurrenciesData -> {
                 adapter.submitList(model.favoriteCurrencies)
                 currencySearchRecyclerView?.visible()
                 errorHolder?.gone()

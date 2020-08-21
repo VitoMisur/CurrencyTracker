@@ -51,7 +51,7 @@
             android:paddingBottom="20dp">
 
             <TextView
-                android:id="@+id/currencySymbol"
+                android:id="@+id/currencyName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textAppearance="@style/WelcomeTextAppearance"
@@ -67,11 +67,11 @@
                 android:layout_marginStart="20dp"
                 android:background="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/currencySymbol"
+                app:layout_constraintStart_toEndOf="@+id/currencyName"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/currencyName"
+                android:id="@+id/currencySymbol"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"

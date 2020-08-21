@@ -51,8 +51,8 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun initView() {
-        currencyName.text = resources.getString(R.string.empty_currency_name_placeholder)
-        currencySymbol.text = resources.getString(R.string.empty_currency_symbol_placeholder)
+        currencySymbol.text = resources.getString(R.string.empty_currency_name_placeholder)
+        currencyName.text = resources.getString(R.string.empty_currency_symbol_placeholder)
     }
 
     private fun render(model: BaseModel) {
@@ -64,7 +64,7 @@ class WelcomeFragment : Fragment() {
                     setImageResource(R.drawable.ic_right)
                     setOnClickListener {
                         // dummy dialog regarding badAPI
-                        if (currencySymbol.text != "EUR") {
+                        if (currencyName.text != "EUR") {
                             AlertDialog.Builder(requireContext())
                                 .setMessage("Only EURO supported in free API")
                                 .setCancelable(true)
@@ -103,8 +103,8 @@ class WelcomeFragment : Fragment() {
             is BaseModel.MainCurrencyState -> {
                 model.currency.apply {
                     confirmAndContinue?.visible()
-                    currencyName.text = name
-                    currencySymbol.text = symbol
+                    currencySymbol.text = name
+                    currencyName.text = symbol
                 }
             }
         }

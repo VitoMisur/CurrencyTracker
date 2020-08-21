@@ -44,14 +44,14 @@ class HomeFragment : Fragment() {
 
         favoritesViewModel.favoriteCurrenciesLiveData.observe(viewLifecycleOwner, Observer {
             render(
-                HomeModel.Data(
+                BaseModel.FavoriteCurrenciesData(
                     it
                 )
             )
         })
         welcomeViewModel.supportedSymbols.observe(viewLifecycleOwner, Observer {
             render(
-                HomeModel.SupportedSymbols(
+                BaseModel.SupportedCurrenciesData(
                     it
                 )
             )
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
 
     private fun render(model: BaseModel) {
         when (model) {
-            is HomeModel.Data -> {
+            is BaseModel.FavoriteCurrenciesData -> {
                 adapter.submitList(model.favoriteCurrencies)
                 favoritesRecyclerView?.visible()
                 errorHolder?.gone()
@@ -97,11 +97,11 @@ class HomeFragment : Fragment() {
             }
             is BaseModel.MainCurrencyState -> {
                 model.currency.apply {
-                    currencySymbol.text = symbol
+                    currencyName.text = symbol
                 }
             }
             is BaseModel.SupportedCurrenciesData -> {
-                currencySymbol.setOnClickListener {
+                currencyName.setOnClickListener {
                     childFragmentManager.beginTransaction()
                         .add(ModalBottomFragment.newInstance(model.currencies), "modal").commit()
                 }

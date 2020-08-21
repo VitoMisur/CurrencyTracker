@@ -12,10 +12,7 @@
 
         <action
             android:id="@+id/toFavorites"
-            app:destination="@id/nav_favorites"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_main"
-            app:popUpToInclusive="true" />
+            app:destination="@id/nav_favorites" />
 
     </fragment>
 

@@ -7,35 +7,39 @@
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/currencySymbol"
+        android:id="@+id/currencyName"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textAppearance="@style/WelcomeTextAppearanceHuge"
-        app:layout_constraintBottom_toTopOf="@+id/currencyName"
+        app:layout_constraintBottom_toTopOf="@+id/currencySymbol"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="EUR" />
+        tools:text="Euro" />
 
     <TextView
-        android:id="@+id/currencyName"
+        android:id="@+id/currencySymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/WelcomeTextAppearance"
         android:textColor="@color/colorGrey"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/currencyName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/currencyExchangeRate"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Euro" />
+        tools:text="EUR" />
 
     <TextView
         android:id="@+id/currencyExchangeRate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textAppearance="@style/WelcomeTextAppearance"
         android:textColor="@color/colorGrey"
+        app:layout_constraintEnd_toStartOf="@+id/currencyAmount"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/currencyName"
+        app:layout_constraintStart_toEndOf="@+id/currencySymbol"
+        app:layout_constraintTop_toBottomOf="@+id/currencyName"
         tools:text="≈ 25.34 CZK" />
 
     <TextView
@@ -47,6 +51,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currencyExchangeRate"
         tools:text="123.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

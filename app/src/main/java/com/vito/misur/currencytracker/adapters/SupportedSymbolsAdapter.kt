@@ -37,8 +37,8 @@ class SupportedSymbolsAdapter(private val modalCallBack: ModalCallback) :
                 modalItemPlaceholder.setOnClickListener {
                     modalCallBack.onModalItemClick(this)
                 }
-                currencySymbol.text = symbol
-                currencyName.text = name
+                currencyName.text = symbol
+                currencySymbol.text = name
             }
         }
     }
