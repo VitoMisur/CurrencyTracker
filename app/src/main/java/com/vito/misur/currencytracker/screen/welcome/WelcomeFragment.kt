@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-
 class WelcomeFragment : Fragment() {
 
     private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
@@ -34,7 +33,7 @@ class WelcomeFragment : Fragment() {
         welcomeViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
         welcomeViewModel.supportedSymbols.observe(viewLifecycleOwner, Observer {
             render(
-                WelcomeModel.Data(
+                BaseModel.SupportedCurrenciesData(
                     it
                 )
             )
@@ -58,7 +57,7 @@ class WelcomeFragment : Fragment() {
 
     private fun render(model: BaseModel) {
         when (model) {
-            is WelcomeModel.Data -> {
+            is BaseModel.SupportedCurrenciesData -> {
                 contentHolder?.visible()
                 errorHolder?.gone()
                 confirmAndContinue?.apply {

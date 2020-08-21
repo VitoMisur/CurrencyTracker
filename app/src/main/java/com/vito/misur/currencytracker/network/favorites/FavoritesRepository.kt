@@ -15,13 +15,16 @@ class FavoritesRepository(
     fun receiveAvailableCurrencies() =
         favoriteCurrenciesDao.getAvailableCurrencies()
 
+    fun fetchFavoriteCurrencies() =
+        favoriteCurrenciesDao.getAllFavorites()
+
     suspend fun insertAvailableCurrenciesList(availableCurrencies: List<FavoriteCurrency>) =
         favoriteCurrenciesDao.repopulateFavorites(availableCurrencies)
 
     suspend fun fetchAvailableCurrencies(symbolList: List<String>? = null): ExchangeRates {
         val symbol = supportedCurrenciesDao.getMainCurrencySymbol()
         return currencyAPIService
-            .getLatestExchangeRates(
+            .getLatestExchangeRatesAsync(
                 baseCurrencySymbol = symbol,
                 symbols = symbolList
             )

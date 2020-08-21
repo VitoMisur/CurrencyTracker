@@ -12,7 +12,7 @@ fun repositoryModule() = module {
 
     single { provideWelcomeRepository(get(), get()) }
     single { provideFavoritesRepository(get(), get()) }
-    single { HomeRepository() }
+    single { provideHomeRepository(get(), get()) }
 }
 
 private fun provideWelcomeRepository(
@@ -33,4 +33,15 @@ private fun provideFavoritesRepository(
         AppDatabase.getInstance(app.applicationContext).favoriteCurrenciesDao(),
         AppDatabase.getInstance(app.applicationContext).supportedCurrenciesDao()
     )
+
+private fun provideHomeRepository(
+    currencyAPIService: CurrencyAPIService,
+    app: Application
+): HomeRepository =
+    HomeRepository.getInstance(
+        currencyAPIService,
+        AppDatabase.getInstance(app.applicationContext).favoriteCurrenciesDao(),
+        AppDatabase.getInstance(app.applicationContext).supportedCurrenciesDao()
+    )
+
 

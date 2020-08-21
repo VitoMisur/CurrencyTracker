@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
-import com.vito.misur.currencytracker.adapters.FavoritesAdapter
+import com.vito.misur.currencytracker.adapters.AvailableCurrenciesAdapter
 import com.vito.misur.currencytracker.callback.FavoritesCallback
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
@@ -22,8 +22,8 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
 
     private val favoritesModel by viewModel<FavoritesViewModel>()
 
-    private val adapter: FavoritesAdapter by lazy {
-        FavoritesAdapter(this)
+    private val adapter: AvailableCurrenciesAdapter by lazy {
+        AvailableCurrenciesAdapter(this)
     }
 
     override fun onCreateView(
@@ -67,7 +67,6 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
                 alertText?.text = model.errorMessage
             }
             is BaseModel.LoadingState -> {
-                confirmButton?.gone()
                 progressBar?.run {
                     if (model.isLoading) visible()
                     else gone()

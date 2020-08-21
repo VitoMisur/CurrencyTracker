@@ -18,7 +18,7 @@ fun appModule() = module(override = true) {
 
     single<SharedPreferences.Editor> { provideSharedPrefs(get()).edit() }
 
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { WelcomeViewModel(get(), get()) }
     viewModel { FavoritesViewModel(get(), get()) }
 }

@@ -17,6 +17,10 @@ sealed class BaseModel {
         val currency: Currency
     ) : BaseModel()
 
+    data class SupportedCurrenciesData(
+        val currencies: List<Currency>
+    ) : BaseModel()
+
     object OfflineState : BaseModel()
 
 }

@@ -10,7 +10,7 @@ class WelcomeRepository private constructor(
 ) {
 
     suspend fun fetchSymbols() = currencyAPIService
-        .getSupportedSymbols()
+        .getSupportedSymbolsAsync()
         .await()
 
     suspend fun insertAll(currencyList: List<Currency>) =

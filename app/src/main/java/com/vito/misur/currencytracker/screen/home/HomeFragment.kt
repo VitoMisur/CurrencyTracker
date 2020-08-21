@@ -5,11 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
+import com.vito.misur.currencytracker.adapters.FavoriteCurrenciesAdapter
+import com.vito.misur.currencytracker.custom.gone
+import com.vito.misur.currencytracker.custom.visible
+import com.vito.misur.currencytracker.screen.base.BaseModel
+import com.vito.misur.currencytracker.screen.favorites.FavoritesViewModel
+import com.vito.misur.currencytracker.screen.welcome.ModalBottomFragment
+import com.vito.misur.currencytracker.screen.welcome.WelcomeViewModel
+import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
+
+    private val homeViewModel by viewModel<HomeViewModel>()
+    private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
+    private val favoritesViewModel by sharedViewModel<FavoritesViewModel>()
+
+    private val adapter: FavoriteCurrenciesAdapter by lazy {
+        FavoriteCurrenciesAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,11 +40,72 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currencySymbol.setOnClickListener {
-        }
+        homeViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
 
+        favoritesViewModel.favoriteCurrenciesLiveData.observe(viewLifecycleOwner, Observer {
+            render(
+                HomeModel.Data(
+                    it
+                )
+            )
+        })
+        welcomeViewModel.supportedSymbols.observe(viewLifecycleOwner, Observer {
+            render(
+                HomeModel.SupportedSymbols(
+                    it
+                )
+            )
+        })
+        welcomeViewModel.mainCurrencyLiveData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                render(
+                    BaseModel.MainCurrencyState(it)
+                )
+            }
+        })
+
+        welcomeViewModel.fetchSupportedSymbols()
+        favoritesViewModel.fetchAvailableCurrencies()
+
+        initView()
+    }
+
+    private fun initView() {
+        favoritesRecyclerView.adapter = adapter
         favorites.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.toFavorites())
+        }
+    }
+
+    private fun render(model: BaseModel) {
+        when (model) {
+            is HomeModel.Data -> {
+                adapter.submitList(model.favoriteCurrencies)
+                favoritesRecyclerView?.visible()
+                errorHolder?.gone()
+            }
+            is BaseModel.ErrorState -> {
+                favoritesRecyclerView?.gone()
+                errorHolder?.visible()
+                alertText?.text = model.errorMessage
+            }
+            is BaseModel.LoadingState -> {
+                progressBar?.run {
+                    if (model.isLoading) visible()
+                    else gone()
+                }
+            }
+            is BaseModel.MainCurrencyState -> {
+                model.currency.apply {
+                    currencySymbol.text = symbol
+                }
+            }
+            is BaseModel.SupportedCurrenciesData -> {
+                currencySymbol.setOnClickListener {
+                    childFragmentManager.beginTransaction()
+                        .add(ModalBottomFragment.newInstance(model.currencies), "modal").commit()
+                }
+            }
         }
     }
 }

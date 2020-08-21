@@ -3,30 +3,18 @@ package com.vito.misur.currencytracker.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.callback.FavoritesCallback
+import com.vito.misur.currencytracker.custom.FavoritesAdapterCallback
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import kotlinx.android.synthetic.main.favorites_item.view.*
 
-class FavoritesAdapter(private val favoritesCallback: FavoritesCallback) :
-    ListAdapter<FavoriteCurrency, FavoritesAdapter.SupportedSymbolsViewHolder>(
+class AvailableCurrenciesAdapter(private val favoritesCallback: FavoritesCallback) :
+    ListAdapter<FavoriteCurrency, AvailableCurrenciesAdapter.SupportedSymbolsViewHolder>(
         FavoritesAdapterCallback()
     ) {
-
-    class FavoritesAdapterCallback : DiffUtil.ItemCallback<FavoriteCurrency>() {
-        override fun areItemsTheSame(oldItem: FavoriteCurrency, newItem: FavoriteCurrency) =
-            oldItem.favoriteCurrencyId == newItem.favoriteCurrencyId
-
-        override fun areContentsTheSame(oldItem: FavoriteCurrency, newItem: FavoriteCurrency) =
-            oldItem == newItem
-
-        override fun getChangePayload(oldItem: FavoriteCurrency, newItem: FavoriteCurrency) =
-            newItem
-    }
-
 
     override fun getItemId(position: Int) = getItem(position).favoriteCurrencyId
 

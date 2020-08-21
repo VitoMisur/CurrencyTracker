@@ -13,19 +13,19 @@ private const val accessKey = "e46e65ff26eb6c80c8420ebe66fe3620"
 interface CurrencyAPIService {
 
     @GET("latest")
-    fun getLatestExchangeRates(
+    fun getLatestExchangeRatesAsync(
         @Query("access_key") key: String = accessKey,
         @Query("base") baseCurrencySymbol: String,
         @Query("symbols") symbols: List<String>? = null
     ): Deferred<ExchangeRates>
 
     @GET("symbols")
-    fun getSupportedSymbols(
+    fun getSupportedSymbolsAsync(
         @Query("access_key") key: String = accessKey
     ): Deferred<SupportedSymbols>
 
     @GET("convert")
-    fun getConversionResult(
+    fun getConversionResultAsync(
         @Query("access_key") key: String = accessKey,
         @Query("from") from: String,
         @Query("to") to: String,

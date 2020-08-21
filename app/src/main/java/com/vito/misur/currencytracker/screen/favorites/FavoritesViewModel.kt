@@ -18,6 +18,9 @@ class FavoritesViewModel(
     val availableCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
         get() = repository.receiveAvailableCurrencies()
 
+    val favoriteCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
+        get() = repository.fetchFavoriteCurrencies()
+
     fun fetchFavorite(currencyId: Long, isFavorite: Boolean) {
         stateMutableLiveData.postValue(BaseModel.LoadingState(true))
         launch {
