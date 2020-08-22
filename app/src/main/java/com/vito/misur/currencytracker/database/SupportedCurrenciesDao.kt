@@ -8,16 +8,22 @@ import com.vito.misur.currencytracker.network.data.Currency
 interface SupportedCurrenciesDao {
 
     @Query("SELECT * FROM supported_currency ORDER BY symbol")
-    fun getSupportedCurrencies(): LiveData<List<Currency>>
+    fun getSupportedCurrenciesLiveData(): LiveData<List<Currency>>
+
+    @Query("SELECT * FROM supported_currency ORDER BY symbol")
+    fun getSupportedCurrencies(): List<Currency>
 
     @Query("SELECT * FROM supported_currency WHERE id = :currencyId")
-    fun getCurrency(currencyId: Long): LiveData<Currency>
+    fun getCurrencyLiveData(currencyId: Long): LiveData<Currency>
 
-    @Query("SELECT * FROM supported_currency WHERE is_main_currency = :isFavorite")
-    fun getMainCurrency(isFavorite: Boolean = true): LiveData<Currency?>
+    @Query("SELECT * FROM supported_currency WHERE is_main_currency = :isMainCurrency")
+    fun getMainCurrencyLiveData(isMainCurrency: Boolean = true): LiveData<Currency?>
 
-    @Query("SELECT symbol FROM supported_currency WHERE is_main_currency = :isFavorite")
-    fun getMainCurrencySymbol(isFavorite: Boolean = true): String
+    @Query("SELECT symbol FROM supported_currency WHERE is_main_currency = :isMainCurrency")
+    fun getMainCurrencySymbol(isMainCurrency: Boolean = true): String
+
+    @Query("SELECT id FROM supported_currency WHERE symbol = :symbol")
+    fun getMainCurrencyNewId(symbol: String): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSupportedCurrency(currency: Currency): Long
@@ -27,8 +33,11 @@ interface SupportedCurrenciesDao {
 
     @Transaction
     suspend fun insertNewCurrencies(currencies: List<Currency>): List<Long> {
+        val mainCurrencySymbol = getMainCurrencySymbol()
         deleteAll()
-        return insertAll(currencies)
+        val newCurrenciesList = insertAll(currencies)
+        selectMainCurrency(getMainCurrencyNewId(mainCurrencySymbol))
+        return newCurrenciesList
     }
 
     @Delete

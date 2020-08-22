@@ -4,7 +4,8 @@
     <string name="this_can_be_changed_later">This can be changed later</string>
     <string name="icon">icon</string>
     <string name="welcome">Welcome!</string>
-    <string name="connection_required">Connection required\nfor the first run</string>
+    <string name="error_connection_required">Connection required\nfor the first run</string>
+    <string name="error_empty_result_for_main_currency">Nothing found for specified currency %1$s</string>
     <string name="hint">Euro</string>
     <string name="hint_number">000.0</string>
     <string name="empty_currency_name_placeholder">XXX XXX XXX</string>

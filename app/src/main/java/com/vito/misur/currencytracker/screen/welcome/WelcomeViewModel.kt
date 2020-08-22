@@ -2,6 +2,8 @@ package com.vito.misur.currencytracker.screen.welcome
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.network.data.Currency
 import com.vito.misur.currencytracker.network.welcome.WelcomeRepository
 import com.vito.misur.currencytracker.screen.base.BaseModel
@@ -9,6 +11,7 @@ import com.vito.misur.currencytracker.screen.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.net.UnknownHostException
 
 
 class WelcomeViewModel(
@@ -19,9 +22,6 @@ class WelcomeViewModel(
     val mainCurrencyLiveData: LiveData<Currency?>
         get() = repository.getMainCurrency()
 
-    val supportedSymbols: LiveData<List<Currency>>
-        get() = repository.getSupportedCurrencies()
-
     fun fetchMainCurrency(currencyId: Long) {
         launch {
             repository.fetchMainCurrency(currencyId)
@@ -30,31 +30,25 @@ class WelcomeViewModel(
         }
     }
 
+    protected val supportedSymbolsMutableLiveData = MutableLiveData<List<Currency>>()
+    val supportedSymbolsLiveData: LiveData<List<Currency>>
+        get() = supportedSymbolsMutableLiveData
+
     fun fetchSupportedSymbols() {
         stateMutableLiveData.postValue(BaseModel.LoadingState(true))
-
         launch {
             withContext(Dispatchers.IO) {
-                repository.fetchSymbols().let { response ->
-                    response.takeIf { response.success }?.let { successfulResponse ->
-                        successfulResponse.symbols.map {
-                            Currency(
-                                it.key,
-                                it.value
-                            )
-                        }.apply {
-                            if (isNullOrEmpty()) {
-                                stateMutableLiveData.postValue(BaseModel.EmptyState)
-                            } else {
-                                repository.insertAll(this)
-                            }
-                        }
+                try {
+                    repository.fetchSupportedSymbols().let { response ->
+                        supportedSymbolsMutableLiveData.postValue(response)
                     }
-                        ?: stateMutableLiveData.postValue(BaseModel.ErrorState(response.error.type + " / " + response.error.code))
+                } catch (unknownHost: UnknownHostException) {
+                    stateMutableLiveData.postValue(BaseModel.ErrorState(messageResId = R.string.error_connection_required))
                 }
             }
         }.invokeOnCompletion {
             stateMutableLiveData.postValue(BaseModel.LoadingState(false))
         }
     }
+
 }

@@ -40,6 +40,7 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
         favoritesModel.availableCurrenciesLiveData.observe(
             viewLifecycleOwner,
             Observer { render(BaseModel.FavoriteCurrenciesData(it)) })
+
         favoritesModel.fetchAvailableCurrencies()
 
         initView()
@@ -57,11 +58,13 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
             is BaseModel.FavoriteCurrenciesData -> {
                 adapter.submitList(model.favoriteCurrencies)
                 currencySearchRecyclerView?.visible()
+                headerHolder?.visible()
                 errorHolder?.gone()
                 confirmButton?.visible()
             }
             is BaseModel.ErrorState -> {
                 currencySearchRecyclerView?.gone()
+                headerHolder?.gone()
                 confirmButton?.gone()
                 errorHolder?.visible()
                 alertText?.text = model.errorMessage
@@ -71,6 +74,15 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
                     if (model.isLoading) visible()
                     else gone()
                 }
+            }
+            is BaseModel.EmptyState -> {
+                currencySearchRecyclerView?.gone()
+                headerHolder?.gone()
+                errorHolder?.visible()
+                alertText?.text = resources.getString(
+                    R.string.error_empty_result_for_main_currency,
+                    model.currencySymbol
+                )
             }
         }
     }

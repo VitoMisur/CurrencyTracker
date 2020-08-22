@@ -2,6 +2,7 @@ package com.vito.misur.currencytracker.screen.favorites
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.network.favorites.FavoritesRepository
 import com.vito.misur.currencytracker.screen.base.BaseModel
@@ -9,53 +10,57 @@ import com.vito.misur.currencytracker.screen.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.net.UnknownHostException
 
 class FavoritesViewModel(
     application: Application,
     private val repository: FavoritesRepository
 ) : BaseViewModel(application) {
 
-    val availableCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
-        get() = repository.receiveAvailableCurrencies()
-
-    val favoriteCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
-        get() = repository.fetchFavoriteCurrencies()
-
     fun fetchFavorite(currencyId: Long, isFavorite: Boolean) {
-        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
         launch {
             withContext(Dispatchers.IO) {
                 repository.fetchCurrencyFavoriteStatus(currencyId, isFavorite)
-                // TODO: on update notify adapter
+                availableCurrenciesMutableLiveData.postValue(repository.getAvailableCurrenciesFromDatabase())
+            }
+        }
+    }
+
+    protected val favoriteCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrency>>()
+    val favoriteCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
+        get() = favoriteCurrenciesMutableLiveData
+
+    fun fetchFavoriteCurrencies() {
+        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
+        launch {
+            withContext(Dispatchers.IO) {
+                repository.getFavoriteCurrencies().let { response ->
+                    if (response.isNullOrEmpty()) {
+                        stateMutableLiveData.postValue(BaseModel.EmptyState(repository.getMainCurrencySymbol()))
+                    } else favoriteCurrenciesMutableLiveData.postValue(response)
+                }
             }
         }.invokeOnCompletion {
             stateMutableLiveData.postValue(BaseModel.LoadingState(false))
         }
     }
 
+    protected val availableCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrency>>()
+    val availableCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
+        get() = availableCurrenciesMutableLiveData
+
     fun fetchAvailableCurrencies() {
         stateMutableLiveData.postValue(BaseModel.LoadingState(true))
         launch {
             withContext(Dispatchers.IO) {
-                repository.fetchAvailableCurrencies().let { response ->
-                    response.takeIf { response.success }?.let { successfulResponse ->
-                        successfulResponse.apply {
-                            exchangeRates.map {
-                                FavoriteCurrency(
-                                    symbol = it.key,
-                                    exchangeRate = it.value,
-                                    baseCurrency = baseCurrency
-                                )
-                            }.apply {
-                                if (isNullOrEmpty()) {
-                                    stateMutableLiveData.postValue(BaseModel.EmptyState)
-                                } else {
-                                    repository.insertAvailableCurrenciesList(this)
-                                }
-                            }
-                        }
+                try {
+                    repository.getAvailableCurrencies().let { response ->
+                        if (response.isNullOrEmpty()) {
+                            stateMutableLiveData.postValue(BaseModel.EmptyState(repository.getMainCurrencySymbol()))
+                        } else availableCurrenciesMutableLiveData.postValue(response)
                     }
-                        ?: stateMutableLiveData.postValue(BaseModel.ErrorState(response.error.type + " / " + response.error.code))
+                } catch (unknownHost: UnknownHostException) {
+                    stateMutableLiveData.postValue(BaseModel.OfflineState)
                 }
             }
         }.invokeOnCompletion {

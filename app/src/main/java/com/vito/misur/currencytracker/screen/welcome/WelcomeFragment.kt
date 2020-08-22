@@ -1,6 +1,6 @@
 package com.vito.misur.currencytracker.screen.welcome
 
-import android.app.AlertDialog
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +11,16 @@ import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
+import com.vito.misur.currencytracker.screen.FIRST_CURRENCY_SELECTION
 import com.vito.misur.currencytracker.screen.base.BaseModel
 import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class WelcomeFragment : Fragment() {
+
+    private val sharedPreferences: SharedPreferences by inject()
 
     private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
@@ -31,7 +35,7 @@ class WelcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         welcomeViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
-        welcomeViewModel.supportedSymbols.observe(viewLifecycleOwner, Observer {
+        welcomeViewModel.supportedSymbolsLiveData.observe(viewLifecycleOwner, Observer {
             render(
                 BaseModel.SupportedCurrenciesData(
                     it
@@ -45,6 +49,7 @@ class WelcomeFragment : Fragment() {
                 )
             }
         })
+
         welcomeViewModel.fetchSupportedSymbols()
 
         initView()
@@ -63,20 +68,10 @@ class WelcomeFragment : Fragment() {
                 confirmAndContinue?.apply {
                     setImageResource(R.drawable.ic_right)
                     setOnClickListener {
-                        // dummy dialog regarding badAPI
-                        if (currencyName.text != "EUR") {
-                            AlertDialog.Builder(requireContext())
-                                .setMessage("Only EURO supported in free API")
-                                .setCancelable(true)
-                                .setPositiveButton(
-                                    "OK"
-                                ) { dialog, id ->
-                                    //do things
-                                    dialog.dismiss()
-                                }
-                                .create()
-                                .show()
-                        } else findNavController().navigate(WelcomeFragmentDirections.toFavorites())
+                        sharedPreferences.edit().putBoolean(FIRST_CURRENCY_SELECTION, false)
+                            .apply()
+                        findNavController().navigate(WelcomeFragmentDirections.toFavorites())
+
                     }
                 }
                 currencyHolder.setOnClickListener {
@@ -88,7 +83,11 @@ class WelcomeFragment : Fragment() {
             is BaseModel.ErrorState -> {
                 contentHolder?.gone()
                 errorHolder?.visible()
-                alertText?.text = model.errorMessage
+                model.messageResId?.let {
+                    alertText?.text = resources.getString(it)
+                } ?: run {
+                    alertText?.text = model.errorMessage
+                }
                 confirmAndContinue?.apply {
                     visible()
                     setImageResource(R.drawable.ic_refresh)

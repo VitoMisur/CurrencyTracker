@@ -49,7 +49,8 @@ class HomeFragment : Fragment() {
                 )
             )
         })
-        welcomeViewModel.supportedSymbols.observe(viewLifecycleOwner, Observer {
+
+        welcomeViewModel.supportedSymbolsLiveData.observe(viewLifecycleOwner, Observer {
             render(
                 BaseModel.SupportedCurrenciesData(
                     it
@@ -65,7 +66,7 @@ class HomeFragment : Fragment() {
         })
 
         welcomeViewModel.fetchSupportedSymbols()
-        favoritesViewModel.fetchAvailableCurrencies()
+        favoritesViewModel.fetchFavoriteCurrencies()
 
         initView()
     }
@@ -95,10 +96,20 @@ class HomeFragment : Fragment() {
                     else gone()
                 }
             }
+            is BaseModel.EmptyState -> {
+                favoritesRecyclerView?.gone()
+                errorHolder?.visible()
+                alertText?.text = resources.getString(
+                    R.string.error_empty_result_for_main_currency,
+                    model.currencySymbol
+                )
+            }
             is BaseModel.MainCurrencyState -> {
                 model.currency.apply {
                     currencyName.text = symbol
                 }
+                // TODO: fix
+                favoritesViewModel.fetchFavoriteCurrencies()
             }
             is BaseModel.SupportedCurrenciesData -> {
                 currencyName.setOnClickListener {

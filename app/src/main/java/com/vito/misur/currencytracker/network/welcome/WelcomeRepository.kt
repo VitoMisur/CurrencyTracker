@@ -9,18 +9,30 @@ class WelcomeRepository private constructor(
     private val supportedCurrenciesDao: SupportedCurrenciesDao
 ) {
 
-    suspend fun fetchSymbols() = currencyAPIService
+    private suspend fun getSupportedSymbolsFromServer() = currencyAPIService
         .getSupportedSymbolsAsync()
         .await()
 
-    suspend fun insertAll(currencyList: List<Currency>) =
+    private suspend fun insertAllSupportedCurrencies(currencyList: List<Currency>) =
         supportedCurrenciesDao.insertNewCurrencies(currencyList)
 
-    fun getSupportedCurrencies() =
+    private fun getSupportedSymbolsFromDatabase() =
         supportedCurrenciesDao.getSupportedCurrencies()
 
+    suspend fun fetchSupportedSymbols(symbolList: List<String>? = null): List<Currency> {
+        getSupportedSymbolsFromServer().apply {
+            insertAllSupportedCurrencies(symbols.map {
+                Currency(
+                    it.key,
+                    it.value
+                )
+            })
+        }
+        return getSupportedSymbolsFromDatabase()
+    }
+
     fun getMainCurrency() =
-        supportedCurrenciesDao.getMainCurrency()
+        supportedCurrenciesDao.getMainCurrencyLiveData()
 
     suspend fun fetchMainCurrency(currencyId: Long) {
         supportedCurrenciesDao.setAsMainCurrency(currencyId)

@@ -7,16 +7,25 @@ import androidx.room.*
 interface FavoriteCurrenciesDao {
 
     @Query("SELECT * FROM favorite_currencies ORDER BY symbol")
-    fun getAvailableCurrencies(): LiveData<List<FavoriteCurrency>>
+    fun getAvailableCurrenciesLiveData(): LiveData<List<FavoriteCurrency>>
+
+    @Query("SELECT * FROM favorite_currencies WHERE base_currency = :baseCurrencySymbol ORDER BY symbol")
+    fun getAvailableCurrencies(baseCurrencySymbol: String): List<FavoriteCurrency>
 
     @Query("SELECT * FROM favorite_currencies WHERE is_favorite = :isFavorite ORDER BY symbol")
-    fun getAllFavorites(isFavorite: Boolean = true): LiveData<List<FavoriteCurrency>>
+    fun getAllFavoritesLiveData(isFavorite: Boolean = true): LiveData<List<FavoriteCurrency>>
+
+    @Query("SELECT * FROM favorite_currencies WHERE is_favorite = :isFavorite AND base_currency = :baseCurrencySymbol ORDER BY symbol")
+    fun getAllFavorites(
+        baseCurrencySymbol: String,
+        isFavorite: Boolean = true
+    ): List<FavoriteCurrency>
 
     @Query("SELECT * FROM favorite_currencies WHERE id = :favoriteCurrencyId")
-    fun getAvailableCurrency(favoriteCurrencyId: Long): LiveData<FavoriteCurrency>
+    fun getAvailableCurrencyLiveData(favoriteCurrencyId: Long): LiveData<FavoriteCurrency>
 
     @Query("SELECT * FROM favorite_currencies WHERE is_favorite = :isFavorite AND id = :favoriteCurrencyId")
-    fun getFavoriteCurrency(
+    fun getFavoriteCurrencyLiveData(
         favoriteCurrencyId: Long,
         isFavorite: Boolean = true
     ): LiveData<FavoriteCurrency>
@@ -28,7 +37,7 @@ interface FavoriteCurrenciesDao {
     fun restoreFavorites(symbols: List<String>, isFavorite: Boolean = true)
 
     @Query("UPDATE favorite_currencies SET is_favorite = :isFavorite WHERE id = :currencyId")
-    fun setCurrencyAsFavorite(currencyId: Long, isFavorite: Boolean)
+    fun setCurrencyAsFavorite(currencyId: Long, isFavorite: Boolean): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAvailableCurrenciesList(availableCurrencies: List<FavoriteCurrency>): List<Long>

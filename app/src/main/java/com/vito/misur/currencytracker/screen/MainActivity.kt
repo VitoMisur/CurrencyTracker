@@ -8,7 +8,7 @@ import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.screen.home.HomeFragmentDirections
 import org.koin.android.ext.android.inject
 
-const val FIRST_RUN = "firstrun"
+const val FIRST_CURRENCY_SELECTION = "FIRST_CURRENCY_SELECTION"
 
 class MainActivity : AppCompatActivity() {
     private val sharedPreferences: SharedPreferences by inject()
@@ -19,9 +19,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sharedPreferences.apply {
-            edit().putBoolean(FIRST_RUN, true).apply()
-            if (getBoolean(FIRST_RUN, true)) {
-                edit().putBoolean(FIRST_RUN, false).apply()
+//            edit().putBoolean(FIRST_CURRENCY_SELECTION, true).apply()
+            if (getBoolean(FIRST_CURRENCY_SELECTION, true)) {
                 (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController.navigate(
                     HomeFragmentDirections.toWelcome()
                 )

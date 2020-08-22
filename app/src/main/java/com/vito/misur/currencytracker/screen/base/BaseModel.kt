@@ -1,5 +1,6 @@
 package com.vito.misur.currencytracker.screen.base
 
+import androidx.annotation.StringRes
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.network.data.Currency
 
@@ -7,10 +8,10 @@ sealed class BaseModel {
 
     class LoadingState(val isLoading: Boolean) : BaseModel()
 
-    class ErrorState(val errorMessage: String? = "Something went wrong,\nplease check your connection.") :
+    class ErrorState(val errorMessage: String? = null, @StringRes val messageResId: Int? = null) :
         BaseModel()
 
-    object EmptyState : BaseModel()
+    class EmptyState(val currencySymbol: String) : BaseModel()
 
     // Model states used instead of basic function calls
     data class MainCurrencyState(
