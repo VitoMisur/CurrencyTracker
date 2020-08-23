@@ -1,5 +1,6 @@
 package com.vito.misur.currencytracker.network.favorites
 
+import com.vito.misur.currencytracker.custom.toScaledDouble
 import com.vito.misur.currencytracker.database.FavoriteCurrenciesDao
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.database.SupportedCurrenciesDao
@@ -56,16 +57,13 @@ class FavoritesRepository(
     fun fetchCurrencyFavoriteStatus(currencyId: Long, isFavorite: Boolean): Int =
         favoriteCurrenciesDao.setCurrencyAsFavorite(currencyId, isFavorite)
 
-    fun getFavoriteCurrencies() =
-        favoriteCurrenciesDao.getAllFavorites(supportedCurrenciesDao.getMainCurrencySymbol())
-
     suspend fun getAvailableCurrencies(symbolList: List<String>? = null): List<FavoriteCurrency> {
         getAvailableCurrenciesFromServer()?.let {
             it.exchangeRates?.let { exchangeRates ->
                 exchangeRates.map { exchangeRate ->
                     FavoriteCurrency(
                         symbol = exchangeRate.key,
-                        exchangeRate = exchangeRate.value,
+                        exchangeRate = exchangeRate.value.toScaledDouble(),
                         baseCurrency = it.baseCurrency
                     )
                 }

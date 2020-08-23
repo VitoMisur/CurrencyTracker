@@ -3,8 +3,8 @@ package com.vito.misur.currencytracker.di
 import android.app.Application
 import com.vito.misur.currencytracker.database.AppDatabase
 import com.vito.misur.currencytracker.network.CurrencyAPIService
-import com.vito.misur.currencytracker.network.HomeRepository
 import com.vito.misur.currencytracker.network.favorites.FavoritesRepository
+import com.vito.misur.currencytracker.network.home.HomeRepository
 import com.vito.misur.currencytracker.network.welcome.WelcomeRepository
 import org.koin.dsl.module
 

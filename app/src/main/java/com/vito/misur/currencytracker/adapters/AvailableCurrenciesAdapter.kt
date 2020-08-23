@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.callback.FavoritesCallback
 import com.vito.misur.currencytracker.custom.FavoritesAdapterCallback
+import com.vito.misur.currencytracker.custom.toScaledDouble
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import kotlinx.android.synthetic.main.favorites_item.view.*
 
@@ -36,7 +37,11 @@ class AvailableCurrenciesAdapter(private val favoritesCallback: FavoritesCallbac
                 currencyName.text = symbol
                 currencySymbol.text = symbol
                 currencyExchangeRate.text =
-                    resources.getString(R.string.exchange_rate_prefix, exchangeRate, baseCurrency)
+                    resources.getString(
+                        R.string.exchange_rate_prefix,
+                        exchangeRate.toScaledDouble().toString(),
+                        baseCurrency
+                    )
             }
         }
     }

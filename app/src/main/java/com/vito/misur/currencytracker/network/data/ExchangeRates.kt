@@ -6,7 +6,7 @@ class ExchangeRates(
     @field:SerializedName("timestamp") val timestamp: Long,
     @field:SerializedName("base") val baseCurrency: String,
     @field:SerializedName("date") val date: String,
-    @field:SerializedName("rates") val exchangeRates: Map<String, Float>?,
+    @field:SerializedName("rates") val exchangeRates: Map<String, Double>?,
     success: Boolean,
     error: ResponseError
 ) : Response(success, error)

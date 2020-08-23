@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.adapters.FavoriteCurrenciesAdapter
+import com.vito.misur.currencytracker.custom.getString
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.screen.base.BaseModel
@@ -40,9 +42,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        favoritesViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
+        homeViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
 
-        favoritesViewModel.favoriteCurrenciesLiveData.observe(viewLifecycleOwner, Observer {
+        homeViewModel.favoriteCurrenciesLiveData.observe(viewLifecycleOwner, Observer {
             render(
                 BaseModel.FavoriteCurrenciesData(
                     it
@@ -66,7 +68,7 @@ class HomeFragment : Fragment() {
         })
 
         welcomeViewModel.fetchSupportedSymbols()
-        favoritesViewModel.fetchFavoriteCurrencies()
+        homeViewModel.fetchFavoriteCurrencies()
 
         initView()
     }
@@ -76,11 +78,22 @@ class HomeFragment : Fragment() {
         favorites.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.toFavorites())
         }
+
+        amountToExchange.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                homeViewModel.fetchAmount()
+            }
+            false
+        }
     }
 
     private fun render(model: BaseModel) {
         when (model) {
             is BaseModel.FavoriteCurrenciesData -> {
+                model.favoriteCurrencies.map { favCurrency ->
+                    favCurrency.setConvertedAmount(amountToExchange?.text?.getString())
+                }
+
                 adapter.submitList(model.favoriteCurrencies)
                 favoritesRecyclerView?.visible()
                 errorHolder?.gone()
@@ -108,13 +121,20 @@ class HomeFragment : Fragment() {
                 model.currency.apply {
                     currencyName.text = symbol
                 }
-                // TODO: fix
-                favoritesViewModel.fetchFavoriteCurrencies()
+                homeViewModel.fetchFavoriteCurrencies()
             }
             is BaseModel.SupportedCurrenciesData -> {
                 currencyName.setOnClickListener {
                     childFragmentManager.beginTransaction()
                         .add(ModalBottomFragment.newInstance(model.currencies), "modal").commit()
+                }
+            }
+            is BaseModel.HomeConversionState -> {
+                adapter.apply {
+                    currentList.map { favCurrency ->
+                        favCurrency.setConvertedAmount(amountToExchange?.text?.getString())
+                    }
+                    notifyDataSetChanged()
                 }
             }
         }

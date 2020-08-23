@@ -1,7 +1,8 @@
-package com.vito.misur.currencytracker.network
+package com.vito.misur.currencytracker.network.home
 
 import com.vito.misur.currencytracker.database.FavoriteCurrenciesDao
 import com.vito.misur.currencytracker.database.SupportedCurrenciesDao
+import com.vito.misur.currencytracker.network.CurrencyAPIService
 
 class HomeRepository(
     private val currencyAPIService: CurrencyAPIService,
@@ -9,12 +10,18 @@ class HomeRepository(
     private val supportedCurrenciesDao: SupportedCurrenciesDao
 ) {
 
+    fun getFavoriteCurrencies() =
+        favoriteCurrenciesDao.getAllFavorites(supportedCurrenciesDao.getMainCurrencySymbol())
+
+    fun getMainCurrencySymbol() =
+        supportedCurrenciesDao.getMainCurrencySymbol()
+
+    // Paid API needed to convert all possible currencies
     suspend fun fetchConversion(
-        mainCurrencySymbol: String,
         convertibleCurrencySymbol: String,
         amount: String
     ) = currencyAPIService.getConversionResultAsync(
-        from = mainCurrencySymbol,
+        from = supportedCurrenciesDao.getMainCurrencySymbol(),
         to = convertibleCurrencySymbol,
         amount = amount
     ).await()

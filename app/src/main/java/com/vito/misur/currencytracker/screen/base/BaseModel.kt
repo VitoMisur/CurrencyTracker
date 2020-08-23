@@ -26,4 +26,6 @@ sealed class BaseModel {
     data class FavoriteCurrenciesData(
         val favoriteCurrencies: List<FavoriteCurrency>
     ) : BaseModel()
+
+    object HomeConversionState : BaseModel()
 }

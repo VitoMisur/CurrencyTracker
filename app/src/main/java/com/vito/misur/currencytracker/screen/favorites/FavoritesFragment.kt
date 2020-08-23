@@ -1,10 +1,10 @@
 package com.vito.misur.currencytracker.screen.favorites
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -54,6 +54,19 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
         confirmButton.setOnClickListener {
             findNavController().navigate(FavoritesFragmentDirections.toHome())
         }
+        search?.setOnClickListener {
+            favoritesModel.fetchAvailableCurrenciesWithSearch(
+                searchEditText.text.toString().trim()
+            )
+        }
+        searchEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                favoritesModel.fetchAvailableCurrenciesWithSearch(
+                    searchEditText.text.toString().trim()
+                )
+            }
+            false
+        }
     }
 
     private fun render(model: BaseModel) {
@@ -62,13 +75,6 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
                 adapter.submitList(model.favoriteCurrencies)
                 currencySearchRecyclerView?.visible()
                 headerHolder?.visible()
-                search?.setOnClickListener {
-                    favoritesModel.fetchAvailableCurrenciesWithSearch(
-                        editText.text.toString().trim()
-                    )
-                    editText.inputType = InputType.TYPE_NULL
-
-                }
                 errorHolder?.gone()
                 confirmButton?.visible()
             }
@@ -87,7 +93,6 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
             }
             is BaseModel.EmptyState -> {
                 currencySearchRecyclerView?.gone()
-                headerHolder?.gone()
                 errorHolder?.visible()
                 alertText?.text = resources.getString(
                     model.emptyMessage ?: R.string.error_empty_result_for_main_currency,

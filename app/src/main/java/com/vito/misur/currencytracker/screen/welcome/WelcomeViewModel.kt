@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.network.data.Currency
 import com.vito.misur.currencytracker.network.welcome.WelcomeRepository
-import com.vito.misur.currencytracker.screen.base.BaseModel
+import com.vito.misur.currencytracker.screen.base.BaseModel.ErrorState
+import com.vito.misur.currencytracker.screen.base.BaseModel.LoadingState
 import com.vito.misur.currencytracker.screen.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ class WelcomeViewModel(
         launch {
             repository.setNewMainCurrency(currencyId)
         }.invokeOnCompletion {
-            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
+            stateMutableLiveData.postValue(LoadingState(false))
         }
     }
 
@@ -35,7 +36,7 @@ class WelcomeViewModel(
         get() = supportedSymbolsMutableLiveData
 
     fun fetchSupportedSymbols() {
-        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
+        stateMutableLiveData.postValue(LoadingState(true))
         launch {
             withContext(Dispatchers.IO) {
                 try {
@@ -48,11 +49,11 @@ class WelcomeViewModel(
                     repository.getSupportedSymbolsFromDatabase().let { response ->
                         supportedSymbolsMutableLiveData.postValue(response)
                     }
-                    stateMutableLiveData.postValue(BaseModel.ErrorState(messageResId = R.string.error_connection_required))
+                    stateMutableLiveData.postValue(ErrorState(messageResId = R.string.error_connection_required))
                 }
             }
         }.invokeOnCompletion {
-            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
+            stateMutableLiveData.postValue(LoadingState(false))
         }
     }
 

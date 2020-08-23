@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.network.favorites.FavoritesRepository
-import com.vito.misur.currencytracker.screen.base.BaseModel
+import com.vito.misur.currencytracker.screen.base.BaseModel.EmptyState
+import com.vito.misur.currencytracker.screen.base.BaseModel.LoadingState
 import com.vito.misur.currencytracker.screen.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,42 +28,23 @@ class FavoritesViewModel(
         }
     }
 
-    protected val favoriteCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrency>>()
-    val favoriteCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
-        get() = favoriteCurrenciesMutableLiveData
-
-    fun fetchFavoriteCurrencies() {
-        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
-        launch {
-            withContext(Dispatchers.IO) {
-                repository.getFavoriteCurrencies().let { response ->
-                    if (response.isNullOrEmpty()) {
-                        stateMutableLiveData.postValue(BaseModel.EmptyState(repository.getMainCurrencySymbol()))
-                    } else favoriteCurrenciesMutableLiveData.postValue(response)
-                }
-            }
-        }.invokeOnCompletion {
-            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
-        }
-    }
-
     protected val availableCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrency>>()
     val availableCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
         get() = availableCurrenciesMutableLiveData
 
     fun fetchAvailableCurrencies() {
-        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
+        stateMutableLiveData.postValue(LoadingState(true))
         launch {
             withContext(Dispatchers.IO) {
                 try {
                     repository.getAvailableCurrencies().let { response ->
                         if (response.isNullOrEmpty()) {
-                            stateMutableLiveData.postValue(BaseModel.EmptyState(repository.getMainCurrencySymbol()))
+                            stateMutableLiveData.postValue(EmptyState(repository.getMainCurrencySymbol()))
                         } else availableCurrenciesMutableLiveData.postValue(response)
                     }
                 } catch (unknownHost: UnknownHostException) {
                     stateMutableLiveData.postValue(
-                        BaseModel.EmptyState(
+                        EmptyState(
                             repository.getMainCurrencySymbol(),
                             R.string.error_empty_offline_result_for_main_currency
                         )
@@ -70,18 +52,18 @@ class FavoritesViewModel(
                 }
             }
         }.invokeOnCompletion {
-            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
+            stateMutableLiveData.postValue(LoadingState(false))
         }
     }
 
     fun fetchAvailableCurrenciesWithSearch(searchQuery: String) {
-        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
+        stateMutableLiveData.postValue(LoadingState(true))
         launch {
             withContext(Dispatchers.IO) {
                 repository.getAvailableCurrenciesFromDatabaseFiltered(searchQuery).let { response ->
                     if (response.isNullOrEmpty()) {
                         stateMutableLiveData.postValue(
-                            BaseModel.EmptyState(
+                            EmptyState(
                                 repository.getMainCurrencySymbol(),
                                 R.string.empty_search_currencies
                             )
@@ -91,7 +73,7 @@ class FavoritesViewModel(
 
             }
         }.invokeOnCompletion {
-            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
+            stateMutableLiveData.postValue(LoadingState(false))
         }
     }
 }
