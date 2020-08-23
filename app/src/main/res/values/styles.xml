@@ -24,7 +24,7 @@
     </style>
 
     <style name="WelcomeTextAppearanceHuge" parent="@android:style/TextAppearance">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorBlack</item>
     </style>

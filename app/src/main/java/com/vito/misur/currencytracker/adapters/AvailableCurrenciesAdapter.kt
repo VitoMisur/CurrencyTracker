@@ -34,7 +34,7 @@ class AvailableCurrenciesAdapter(private val favoritesCallback: FavoritesCallbac
                     favoritesCallback.onFavoriteClick(this)
                 }
                 favoriteImageView.setImageResource(if (isFavorite) R.drawable.ic_heart_filled else R.drawable.ic_heart)
-                currencyName.text = symbol
+                currencyName.text = name
                 currencySymbol.text = symbol
                 currencyExchangeRate.text =
                     resources.getString(

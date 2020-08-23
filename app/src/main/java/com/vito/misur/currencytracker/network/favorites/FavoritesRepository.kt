@@ -68,6 +68,7 @@ class FavoritesRepository(
                 exchangeRates.map { exchangeRate ->
                     FavoriteCurrency(
                         symbol = exchangeRate.key,
+                        name = supportedCurrenciesDao.getCurrencyName(exchangeRate.key),
                         exchangeRate = exchangeRate.value.toScaledDouble(),
                         baseCurrency = response.baseCurrency
                     )

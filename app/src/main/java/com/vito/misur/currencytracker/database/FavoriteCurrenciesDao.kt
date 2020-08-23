@@ -23,7 +23,7 @@ interface FavoriteCurrenciesDao {
     /** supported in paid API plan only
     //    @Query("SELECT * FROM favorite_currencies WHERE base_currency = :baseCurrencySymbol AND symbol LIKE :searchQuery ORDER BY symbol")
      **/
-    @Query("SELECT * FROM favorite_currencies WHERE symbol LIKE :searchQuery ORDER BY symbol")
+    @Query("SELECT * FROM favorite_currencies WHERE symbol OR name LIKE :searchQuery ORDER BY symbol")
     fun getAvailableCurrenciesFiltered(
         /** supported in paid API plan only
         baseCurrencySymbol: String,

@@ -28,7 +28,7 @@ class FavoriteCurrenciesAdapter :
         holder.itemView.apply {
             getItem(position).apply {
                 currencySymbol.text = symbol
-                currencyName.text = symbol
+                currencyName.text = name
                 currencyAmount.text = convertedAmount.toScaledDouble().toString()
                 currencyExchangeRate.text =
                     resources.getString(

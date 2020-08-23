@@ -8,12 +8,16 @@
 
     <TextView
         android:id="@+id/currencyName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:textAppearance="@style/WelcomeTextAppearanceHuge"
         app:layout_constraintBottom_toTopOf="@+id/currencySymbol"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/currencyAmount"
         tools:text="Euro" />
 
     <TextView
@@ -53,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/currencyExchangeRate"
+        app:layout_constraintStart_toEndOf="@+id/currencyName"
         tools:text="123.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

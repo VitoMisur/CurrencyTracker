@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2260fe00d909185bc24a2145c3600807",
+    "identityHash": "cdb8d06feb245d32b11358167fb6aa67",
     "entities": [
       {
         "tableName": "supported_currency",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "favorite_currencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `calculated_exchange_rate` REAL NOT NULL, `symbol` TEXT NOT NULL, `base_currency` TEXT NOT NULL, `exchange_rate` REAL NOT NULL, `recent_date_time` INTEGER NOT NULL, `is_favorite` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `symbol` TEXT NOT NULL, `name` TEXT NOT NULL, `base_currency` TEXT NOT NULL, `exchange_rate` REAL NOT NULL, `recent_date_time` INTEGER NOT NULL, `is_favorite` INTEGER NOT NULL, `calculated_exchange_rate` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "favoriteCurrencyId",
@@ -53,14 +53,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "calculatedExchangeRate",
-            "columnName": "calculated_exchange_rate",
-            "affinity": "REAL",
+            "fieldPath": "symbol",
+            "columnName": "symbol",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "symbol",
-            "columnName": "symbol",
+            "fieldPath": "name",
+            "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -87,6 +87,12 @@
             "columnName": "is_favorite",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "calculatedExchangeRate",
+            "columnName": "calculated_exchange_rate",
+            "affinity": "REAL",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -102,7 +108,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2260fe00d909185bc24a2145c3600807')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cdb8d06feb245d32b11358167fb6aa67')"
     ]
   }
 }

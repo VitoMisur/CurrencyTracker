@@ -28,6 +28,9 @@ interface SupportedCurrenciesDao {
     @Query("SELECT id FROM supported_currency WHERE symbol = :symbol")
     fun getMainCurrencyNewId(symbol: String): Long
 
+    @Query("SELECT name FROM supported_currency WHERE symbol = :symbol")
+    fun getCurrencyName(symbol: String): String
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSupportedCurrency(currency: Currency): Long
 

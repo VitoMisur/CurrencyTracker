@@ -10,6 +10,7 @@ import org.joda.time.DateTime
 data class
 FavoriteCurrency(
     @ColumnInfo(name = "symbol") val symbol: String,
+    @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "base_currency") val baseCurrency: String,
     // Euro only via Free APi
     @ColumnInfo(name = "exchange_rate") val exchangeRate: Double,
