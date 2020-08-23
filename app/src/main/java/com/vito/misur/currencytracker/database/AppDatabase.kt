@@ -9,6 +9,10 @@ import com.vito.misur.currencytracker.network.data.Currency
 
 const val DATABASE_NAME = "currency-tracker-db"
 
+/**
+ * Application database
+ * with 2 tables containing Currency and FavoriteCurrency data
+ */
 @Database(entities = [Currency::class, FavoriteCurrency::class], version = 1, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

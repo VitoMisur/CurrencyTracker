@@ -16,6 +16,9 @@ import com.vito.misur.currencytracker.network.data.Currency
 import kotlinx.android.synthetic.main.modal_bottom.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
+/** https://github.com/HeyAlex/BottomDrawer
+ * Used instead of basic dropdown selector
+ */
 class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
 
     private val sharedWelcomeViewModel by sharedViewModel<WelcomeViewModel>()

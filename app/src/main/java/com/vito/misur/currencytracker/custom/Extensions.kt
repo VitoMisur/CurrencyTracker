@@ -8,6 +8,12 @@ import android.view.View
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+/**
+ * Global app extensions
+ * weren't splitted
+ *
+ */
+
 fun View.visible() {
     visibility = View.VISIBLE
 }

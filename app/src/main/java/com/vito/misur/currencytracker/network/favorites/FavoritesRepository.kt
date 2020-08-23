@@ -32,19 +32,10 @@ class FavoritesRepository(
     }
 
     fun getAvailableCurrenciesFromDatabase() =
-        favoriteCurrenciesDao.getAvailableCurrencies(
-            /** supported in paid API plan only
-            supportedCurrenciesDao.getMainCurrencySymbol(),
-             **/
-        )
+        favoriteCurrenciesDao.getAvailableCurrencies()
 
     fun getAvailableCurrenciesFromDatabaseFiltered(searchQuery: String) =
-        favoriteCurrenciesDao.getAvailableCurrenciesFiltered(
-            /** supported in paid API plan only
-            supportedCurrenciesDao.getMainCurrencySymbol(),
-             **/
-            "%$searchQuery%"
-        )
+        favoriteCurrenciesDao.getAvailableCurrenciesFiltered("%$searchQuery%")
 
     private suspend fun insertAvailableCurrenciesList(availableCurrencies: List<FavoriteCurrency>) =
         favoriteCurrenciesDao.repopulateFavorites(availableCurrencies)
@@ -52,9 +43,6 @@ class FavoritesRepository(
     private suspend fun getAvailableCurrenciesFromServer(symbolList: List<String>? = null) =
         currencyAPIService
             .getLatestExchangeRatesAsync(
-                /** supported in paid API plan only
-                baseCurrencySymbol = supportedCurrenciesDao.getMainCurrencySymbol(),
-                 **/
                 symbols = symbolList
             )
             .await()

@@ -32,6 +32,9 @@ class App : Application() {
 
             modules(
                 listOf(
+                    /**
+                     * viewmodel module placed inside of app module for sake of having less empty classes
+                     */
                     appModule(),
                     networkModule(),
                     repositoryModule()

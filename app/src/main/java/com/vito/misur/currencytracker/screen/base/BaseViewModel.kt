@@ -8,6 +8,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
+/**
+ * Used to activate base application states
+ * @param application injected by koin
+ */
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application),
     CoroutineScope by MainScope() {
 

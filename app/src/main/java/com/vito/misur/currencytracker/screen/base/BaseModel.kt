@@ -4,8 +4,11 @@ import androidx.annotation.StringRes
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.network.data.Currency
 
+/**
+ * Application events
+ * Used mainly instead of functions
+ */
 sealed class BaseModel {
-
     class LoadingState(val isLoading: Boolean) : BaseModel()
 
     class ErrorState(val errorMessage: String? = null, @StringRes val messageResId: Int? = null) :

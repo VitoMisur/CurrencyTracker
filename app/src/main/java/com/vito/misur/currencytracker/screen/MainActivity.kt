@@ -18,6 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /** checks custom first start event
+         * handles the start of users journey
+         * does not let used proceed without selected main currency
+         **/
         sharedPreferences.apply {
             if (getBoolean(FIRST_CURRENCY_SELECTION, true)) {
                 (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController.navigate(
