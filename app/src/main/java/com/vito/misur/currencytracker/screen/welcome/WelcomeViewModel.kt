@@ -24,7 +24,7 @@ class WelcomeViewModel(
 
     fun fetchMainCurrency(currencyId: Long) {
         launch {
-            repository.fetchMainCurrency(currencyId)
+            repository.setNewMainCurrency(currencyId)
         }.invokeOnCompletion {
             stateMutableLiveData.postValue(BaseModel.LoadingState(false))
         }
@@ -42,7 +42,12 @@ class WelcomeViewModel(
                     repository.fetchSupportedSymbols().let { response ->
                         supportedSymbolsMutableLiveData.postValue(response)
                     }
-                } catch (unknownHost: UnknownHostException) {
+                }
+                // DUMMY no connection handler
+                catch (unknownHost: UnknownHostException) {
+                    repository.getSupportedSymbolsFromDatabase().let { response ->
+                        supportedSymbolsMutableLiveData.postValue(response)
+                    }
                     stateMutableLiveData.postValue(BaseModel.ErrorState(messageResId = R.string.error_connection_required))
                 }
             }

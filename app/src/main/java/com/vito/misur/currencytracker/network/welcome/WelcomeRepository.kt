@@ -16,7 +16,7 @@ class WelcomeRepository private constructor(
     private suspend fun insertAllSupportedCurrencies(currencyList: List<Currency>) =
         supportedCurrenciesDao.insertNewCurrencies(currencyList)
 
-    private fun getSupportedSymbolsFromDatabase() =
+    fun getSupportedSymbolsFromDatabase() =
         supportedCurrenciesDao.getSupportedCurrencies()
 
     suspend fun fetchSupportedSymbols(symbolList: List<String>? = null): List<Currency> {
@@ -34,9 +34,8 @@ class WelcomeRepository private constructor(
     fun getMainCurrency() =
         supportedCurrenciesDao.getMainCurrencyLiveData()
 
-    suspend fun fetchMainCurrency(currencyId: Long) {
+    suspend fun setNewMainCurrency(currencyId: Long) =
         supportedCurrenciesDao.setAsMainCurrency(currencyId)
-    }
 
     companion object {
         // For Singleton instantiation

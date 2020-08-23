@@ -11,7 +11,8 @@ sealed class BaseModel {
     class ErrorState(val errorMessage: String? = null, @StringRes val messageResId: Int? = null) :
         BaseModel()
 
-    class EmptyState(val currencySymbol: String) : BaseModel()
+    class EmptyState(val currencySymbol: String, @StringRes val emptyMessage: Int? = null) :
+        BaseModel()
 
     // Model states used instead of basic function calls
     data class MainCurrencyState(
@@ -25,7 +26,4 @@ sealed class BaseModel {
     data class FavoriteCurrenciesData(
         val favoriteCurrencies: List<FavoriteCurrency>
     ) : BaseModel()
-
-    object OfflineState : BaseModel()
-
 }

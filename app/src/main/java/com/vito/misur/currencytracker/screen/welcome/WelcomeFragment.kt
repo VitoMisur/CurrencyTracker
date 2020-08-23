@@ -1,5 +1,6 @@
 package com.vito.misur.currencytracker.screen.welcome
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +24,8 @@ class WelcomeFragment : Fragment() {
     private val sharedPreferences: SharedPreferences by inject()
 
     private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
+
+    private var firstCurrencySelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +52,6 @@ class WelcomeFragment : Fragment() {
                 )
             }
         })
-
         welcomeViewModel.fetchSupportedSymbols()
 
         initView()
@@ -66,6 +68,7 @@ class WelcomeFragment : Fragment() {
                 contentHolder?.visible()
                 errorHolder?.gone()
                 confirmAndContinue?.apply {
+                    gone()
                     setImageResource(R.drawable.ic_right)
                     setOnClickListener {
                         sharedPreferences.edit().putBoolean(FIRST_CURRENCY_SELECTION, false)
@@ -108,5 +111,17 @@ class WelcomeFragment : Fragment() {
             }
         }
     }
+
+    private fun renderWarningAlert() = AlertDialog.Builder(requireContext())
+        .setMessage(resources.getString(R.string.error_main_currency_not_selected))
+        .setCancelable(true)
+        .setPositiveButton(
+            "OK"
+        ) { dialog, id ->
+            //do things
+            dialog.dismiss()
+        }
+        .create()
+        .show()
 
 }

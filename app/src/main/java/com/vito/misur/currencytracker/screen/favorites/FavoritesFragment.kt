@@ -1,6 +1,7 @@
 package com.vito.misur.currencytracker.screen.favorites
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.screen.base.BaseModel
 import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
+import kotlinx.android.synthetic.main.fragment_favorites.headerHolder
+import kotlinx.android.synthetic.main.search_holder.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment(), FavoritesCallback {
@@ -59,6 +62,13 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
                 adapter.submitList(model.favoriteCurrencies)
                 currencySearchRecyclerView?.visible()
                 headerHolder?.visible()
+                search?.setOnClickListener {
+                    favoritesModel.fetchAvailableCurrenciesWithSearch(
+                        editText.text.toString().trim()
+                    )
+                    editText.inputType = InputType.TYPE_NULL
+
+                }
                 errorHolder?.gone()
                 confirmButton?.visible()
             }
@@ -80,7 +90,7 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
                 headerHolder?.gone()
                 errorHolder?.visible()
                 alertText?.text = resources.getString(
-                    R.string.error_empty_result_for_main_currency,
+                    model.emptyMessage ?: R.string.error_empty_result_for_main_currency,
                     model.currencySymbol
                 )
             }

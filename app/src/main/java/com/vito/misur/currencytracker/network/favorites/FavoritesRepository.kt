@@ -34,6 +34,12 @@ class FavoritesRepository(
     fun getAvailableCurrenciesFromDatabase() =
         favoriteCurrenciesDao.getAvailableCurrencies(supportedCurrenciesDao.getMainCurrencySymbol())
 
+    fun getAvailableCurrenciesFromDatabaseFiltered(searchQuery: String) =
+        favoriteCurrenciesDao.getAvailableCurrenciesFiltered(
+            supportedCurrenciesDao.getMainCurrencySymbol(),
+            "%$searchQuery%"
+        )
+
     private suspend fun insertAvailableCurrenciesList(availableCurrencies: List<FavoriteCurrency>) =
         favoriteCurrenciesDao.repopulateFavorites(availableCurrencies)
 

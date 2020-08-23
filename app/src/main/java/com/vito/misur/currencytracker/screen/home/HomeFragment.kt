@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
+        favoritesViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { render(it) })
 
         favoritesViewModel.favoriteCurrenciesLiveData.observe(viewLifecycleOwner, Observer {
             render(

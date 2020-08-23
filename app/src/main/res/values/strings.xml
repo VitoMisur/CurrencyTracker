@@ -5,7 +5,8 @@
     <string name="icon">icon</string>
     <string name="welcome">Welcome!</string>
     <string name="error_connection_required">Connection required\nfor the first run</string>
-    <string name="error_empty_result_for_main_currency">Nothing found for specified currency %1$s</string>
+    <string name="error_empty_result_for_main_currency">Nothing found for specified currency: %1$s</string>
+    <string name="error_empty_offline_result_for_main_currency">%1$s currency has no preloaded data available</string>
     <string name="hint">Euro</string>
     <string name="hint_number">000.0</string>
     <string name="empty_currency_name_placeholder">XXX XXX XXX</string>
@@ -13,4 +14,6 @@
     <string name="exchange_rate_prefix">≈ %1$f %2$s</string>
     <string name="amount">Amount</string>
     <string name="main_currency">Currency</string>
+    <string name="error_main_currency_not_selected">Main currency must be selected\nto continue</string>
+    <string name="empty_search_currencies">Nothing found with provided name</string>
 </resources>

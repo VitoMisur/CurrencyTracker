@@ -19,6 +19,9 @@ interface SupportedCurrenciesDao {
     @Query("SELECT * FROM supported_currency WHERE is_main_currency = :isMainCurrency")
     fun getMainCurrencyLiveData(isMainCurrency: Boolean = true): LiveData<Currency?>
 
+    @Query("SELECT * FROM supported_currency WHERE is_main_currency = :isMainCurrency")
+    fun getMainCurrency(isMainCurrency: Boolean = true): Currency?
+
     @Query("SELECT symbol FROM supported_currency WHERE is_main_currency = :isMainCurrency")
     fun getMainCurrencySymbol(isMainCurrency: Boolean = true): String
 
@@ -56,8 +59,9 @@ interface SupportedCurrenciesDao {
     suspend fun selectMainCurrency(currencyId: Long, isFavorite: Boolean = true)
 
     @Transaction
-    suspend fun setAsMainCurrency(currencyId: Long) {
+    suspend fun setAsMainCurrency(currencyId: Long): Currency? {
         clearMainCurrency()
         selectMainCurrency(currencyId)
+        return getMainCurrency()
     }
 }

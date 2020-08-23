@@ -12,6 +12,13 @@ interface FavoriteCurrenciesDao {
     @Query("SELECT * FROM favorite_currencies WHERE base_currency = :baseCurrencySymbol ORDER BY symbol")
     fun getAvailableCurrencies(baseCurrencySymbol: String): List<FavoriteCurrency>
 
+    // TODO: implement currency name (get from Supported Currencies)
+    @Query("SELECT * FROM favorite_currencies WHERE base_currency = :baseCurrencySymbol AND symbol LIKE :searchQuery ORDER BY symbol")
+    fun getAvailableCurrenciesFiltered(
+        baseCurrencySymbol: String,
+        searchQuery: String
+    ): List<FavoriteCurrency>
+
     @Query("SELECT * FROM favorite_currencies WHERE is_favorite = :isFavorite ORDER BY symbol")
     fun getAllFavoritesLiveData(isFavorite: Boolean = true): LiveData<List<FavoriteCurrency>>
 

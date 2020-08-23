@@ -3,6 +3,7 @@ package com.vito.misur.currencytracker.screen.favorites
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.network.favorites.FavoritesRepository
 import com.vito.misur.currencytracker.screen.base.BaseModel
@@ -60,8 +61,34 @@ class FavoritesViewModel(
                         } else availableCurrenciesMutableLiveData.postValue(response)
                     }
                 } catch (unknownHost: UnknownHostException) {
-                    stateMutableLiveData.postValue(BaseModel.OfflineState)
+                    stateMutableLiveData.postValue(
+                        BaseModel.EmptyState(
+                            repository.getMainCurrencySymbol(),
+                            R.string.error_empty_offline_result_for_main_currency
+                        )
+                    )
                 }
+            }
+        }.invokeOnCompletion {
+            stateMutableLiveData.postValue(BaseModel.LoadingState(false))
+        }
+    }
+
+    fun fetchAvailableCurrenciesWithSearch(searchQuery: String) {
+        stateMutableLiveData.postValue(BaseModel.LoadingState(true))
+        launch {
+            withContext(Dispatchers.IO) {
+                repository.getAvailableCurrenciesFromDatabaseFiltered(searchQuery).let { response ->
+                    if (response.isNullOrEmpty()) {
+                        stateMutableLiveData.postValue(
+                            BaseModel.EmptyState(
+                                repository.getMainCurrencySymbol(),
+                                R.string.empty_search_currencies
+                            )
+                        )
+                    } else availableCurrenciesMutableLiveData.postValue(response)
+                }
+
             }
         }.invokeOnCompletion {
             stateMutableLiveData.postValue(BaseModel.LoadingState(false))
