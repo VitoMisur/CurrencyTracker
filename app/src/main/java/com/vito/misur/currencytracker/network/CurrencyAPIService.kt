@@ -15,7 +15,9 @@ interface CurrencyAPIService {
     @GET("latest")
     fun getLatestExchangeRatesAsync(
         @Query("access_key") key: String = accessKey,
+        /** supported in paid API plan only
         @Query("base") baseCurrencySymbol: String,
+         **/
         @Query("symbols") symbols: List<String>? = null
     ): Deferred<ExchangeRates>
 

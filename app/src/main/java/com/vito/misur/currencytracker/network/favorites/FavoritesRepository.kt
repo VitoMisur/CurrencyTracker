@@ -5,7 +5,6 @@ import com.vito.misur.currencytracker.database.FavoriteCurrenciesDao
 import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.database.SupportedCurrenciesDao
 import com.vito.misur.currencytracker.network.CurrencyAPIService
-import com.vito.misur.currencytracker.network.data.ExchangeRates
 
 class FavoritesRepository(
     private val currencyAPIService: CurrencyAPIService,
@@ -33,44 +32,53 @@ class FavoritesRepository(
     }
 
     fun getAvailableCurrenciesFromDatabase() =
-        favoriteCurrenciesDao.getAvailableCurrencies(supportedCurrenciesDao.getMainCurrencySymbol())
+        favoriteCurrenciesDao.getAvailableCurrencies(
+            /** supported in paid API plan only
+            supportedCurrenciesDao.getMainCurrencySymbol(),
+             **/
+        )
 
     fun getAvailableCurrenciesFromDatabaseFiltered(searchQuery: String) =
         favoriteCurrenciesDao.getAvailableCurrenciesFiltered(
+            /** supported in paid API plan only
             supportedCurrenciesDao.getMainCurrencySymbol(),
+             **/
             "%$searchQuery%"
         )
 
     private suspend fun insertAvailableCurrenciesList(availableCurrencies: List<FavoriteCurrency>) =
         favoriteCurrenciesDao.repopulateFavorites(availableCurrencies)
 
-    private suspend fun getAvailableCurrenciesFromServer(symbolList: List<String>? = null): ExchangeRates? {
-        val symbol = supportedCurrenciesDao.getMainCurrencySymbol()
-        return currencyAPIService
+    private suspend fun getAvailableCurrenciesFromServer(symbolList: List<String>? = null) =
+        currencyAPIService
             .getLatestExchangeRatesAsync(
-                baseCurrencySymbol = symbol,
+                /** supported in paid API plan only
+                baseCurrencySymbol = supportedCurrenciesDao.getMainCurrencySymbol(),
+                 **/
                 symbols = symbolList
             )
             .await()
-    }
 
     fun fetchCurrencyFavoriteStatus(currencyId: Long, isFavorite: Boolean): Int =
         favoriteCurrenciesDao.setCurrencyAsFavorite(currencyId, isFavorite)
 
     suspend fun getAvailableCurrencies(symbolList: List<String>? = null): List<FavoriteCurrency> {
-        getAvailableCurrenciesFromServer()?.let {
-            it.exchangeRates?.let { exchangeRates ->
+        getAvailableCurrenciesFromServer().let { response ->
+            response.exchangeRates?.let { exchangeRates ->
                 exchangeRates.map { exchangeRate ->
                     FavoriteCurrency(
                         symbol = exchangeRate.key,
                         exchangeRate = exchangeRate.value.toScaledDouble(),
-                        baseCurrency = it.baseCurrency
+                        baseCurrency = response.baseCurrency
                     )
                 }
             }?.let { list ->
                 insertAvailableCurrenciesList(list)
             }
         }
+        favoriteCurrenciesDao.updateAllAvailableCurrenciesWithCalculatedValues(
+            supportedCurrenciesDao.getMainCurrencySymbol()
+        )
         return getAvailableCurrenciesFromDatabase()
     }
 

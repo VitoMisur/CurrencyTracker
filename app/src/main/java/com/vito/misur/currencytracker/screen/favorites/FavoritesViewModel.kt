@@ -43,12 +43,11 @@ class FavoritesViewModel(
                         } else availableCurrenciesMutableLiveData.postValue(response)
                     }
                 } catch (unknownHost: UnknownHostException) {
-                    stateMutableLiveData.postValue(
-                        EmptyState(
-                            repository.getMainCurrencySymbol(),
-                            R.string.error_empty_offline_result_for_main_currency
-                        )
-                    )
+                    repository.getAvailableCurrenciesFromDatabase().let { response ->
+                        if (response.isNullOrEmpty()) {
+                            stateMutableLiveData.postValue(EmptyState(repository.getMainCurrencySymbol()))
+                        } else availableCurrenciesMutableLiveData.postValue(response)
+                    }
                 }
             }
         }.invokeOnCompletion {

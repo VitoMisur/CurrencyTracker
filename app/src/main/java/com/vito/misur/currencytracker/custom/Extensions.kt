@@ -28,8 +28,11 @@ fun Editable.getString() =
 fun String.toScaledDouble() =
     BigDecimal(this.toDouble()).setScale(2, RoundingMode.HALF_EVEN).toDouble()
 
-fun Double.toScaledDouble(scale: Int = 3) =
-    BigDecimal(this).setScale(scale, RoundingMode.HALF_EVEN).toDouble()
+fun Double.toScaledDouble(scale: Int = 3): Double {
+    BigDecimal(this).setScale(scale, RoundingMode.HALF_EVEN).toDouble().apply {
+        return if (isFinite()) this else 0.0
+    }
+}
 
 fun ConnectivityManager.isConnected(): Boolean {
     var isConnected = false

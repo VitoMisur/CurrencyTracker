@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e8e0e70f6a4801f8e4c802e2264029e1",
+    "identityHash": "2260fe00d909185bc24a2145c3600807",
     "entities": [
       {
         "tableName": "supported_currency",
@@ -44,12 +44,18 @@
       },
       {
         "tableName": "favorite_currencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `symbol` TEXT NOT NULL, `base_currency` TEXT NOT NULL, `exchange_rate` REAL NOT NULL, `recent_date_time` INTEGER NOT NULL, `is_favorite` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `calculated_exchange_rate` REAL NOT NULL, `symbol` TEXT NOT NULL, `base_currency` TEXT NOT NULL, `exchange_rate` REAL NOT NULL, `recent_date_time` INTEGER NOT NULL, `is_favorite` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "favoriteCurrencyId",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "calculatedExchangeRate",
+            "columnName": "calculated_exchange_rate",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -96,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e8e0e70f6a4801f8e4c802e2264029e1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2260fe00d909185bc24a2145c3600807')"
     ]
   }
 }

@@ -1,6 +1,7 @@
 package com.vito.misur.currencytracker.network.home
 
 import com.vito.misur.currencytracker.database.FavoriteCurrenciesDao
+import com.vito.misur.currencytracker.database.FavoriteCurrency
 import com.vito.misur.currencytracker.database.SupportedCurrenciesDao
 import com.vito.misur.currencytracker.network.CurrencyAPIService
 
@@ -10,8 +11,8 @@ class HomeRepository(
     private val supportedCurrenciesDao: SupportedCurrenciesDao
 ) {
 
-    fun getFavoriteCurrencies() =
-        favoriteCurrenciesDao.getAllFavorites(supportedCurrenciesDao.getMainCurrencySymbol())
+    suspend fun getFavoriteCurrencies(): List<FavoriteCurrency> =
+        favoriteCurrenciesDao.updateFavoriteCurrenciesWithCalculatedValues(supportedCurrenciesDao.getMainCurrencySymbol())
 
     fun getMainCurrencySymbol() =
         supportedCurrenciesDao.getMainCurrencySymbol()

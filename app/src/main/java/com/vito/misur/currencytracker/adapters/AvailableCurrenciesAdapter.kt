@@ -39,7 +39,10 @@ class AvailableCurrenciesAdapter(private val favoritesCallback: FavoritesCallbac
                 currencyExchangeRate.text =
                     resources.getString(
                         R.string.exchange_rate_prefix,
+                        calculatedExchangeRate.toScaledDouble().toString(),
+                        /** Available in paid API
                         exchangeRate.toScaledDouble().toString(),
+                         */
                         baseCurrency
                     )
             }
