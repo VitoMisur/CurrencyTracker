@@ -34,10 +34,8 @@ interface FavoriteCurrenciesDao {
     @Query("SELECT * FROM favorite_currencies WHERE is_favorite = :isFavorite ORDER BY symbol")
     fun getAllFavoritesLiveData(isFavorite: Boolean = true): LiveData<List<FavoriteCurrency>>
 
-    //    @Query("SELECT * FROM favorite_currencies WHERE is_favorite = :isFavorite AND base_currency = :baseCurrencySymbol ORDER BY symbol")
     @Query("SELECT * FROM favorite_currencies WHERE is_favorite = :isFavorite ORDER BY symbol")
     fun getAllFavorites(
-//        baseCurrencySymbol: String,
         isFavorite: Boolean = true
     ): List<FavoriteCurrency>
 

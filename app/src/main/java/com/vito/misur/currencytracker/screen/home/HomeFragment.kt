@@ -14,7 +14,6 @@ import com.vito.misur.currencytracker.custom.getString
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.screen.base.BaseModel
-import com.vito.misur.currencytracker.screen.favorites.FavoritesViewModel
 import com.vito.misur.currencytracker.screen.welcome.ModalBottomFragment
 import com.vito.misur.currencytracker.screen.welcome.WelcomeViewModel
 import kotlinx.android.synthetic.main.error_layout.*
@@ -26,7 +25,6 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel by viewModel<HomeViewModel>()
     private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
-    private val favoritesViewModel by sharedViewModel<FavoritesViewModel>()
 
     private val adapter: FavoriteCurrenciesAdapter by lazy {
         FavoriteCurrenciesAdapter()

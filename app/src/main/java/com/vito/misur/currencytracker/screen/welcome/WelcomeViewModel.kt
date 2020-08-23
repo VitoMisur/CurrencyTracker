@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
 
-
 class WelcomeViewModel(
     application: Application,
     private val repository: WelcomeRepository

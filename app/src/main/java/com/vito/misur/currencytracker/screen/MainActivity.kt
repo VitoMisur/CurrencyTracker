@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sharedPreferences.apply {
-//            edit().putBoolean(FIRST_CURRENCY_SELECTION, true).apply()
             if (getBoolean(FIRST_CURRENCY_SELECTION, true)) {
                 (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController.navigate(
                     HomeFragmentDirections.toWelcome()

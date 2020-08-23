@@ -25,8 +25,6 @@ class WelcomeFragment : Fragment() {
 
     private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
-    private var firstCurrencySelected = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
