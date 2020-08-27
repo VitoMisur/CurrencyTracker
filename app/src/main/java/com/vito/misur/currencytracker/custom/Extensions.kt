@@ -7,6 +7,8 @@ import android.text.Editable
 import android.view.View
 import java.math.BigDecimal
 import java.math.RoundingMode
+import kotlin.math.ln
+import kotlin.math.pow
 
 /**
  * Global app extensions
@@ -38,6 +40,16 @@ fun Double.toScaledDouble(scale: Int = 3): Double {
     BigDecimal(this).setScale(scale, RoundingMode.HALF_EVEN).toDouble().apply {
         return if (isFinite()) this else 0.0
     }
+}
+
+fun withDividingSuffix(count: Double): String? {
+    if (count < 10000) return "" + count
+    val exp = (ln(count) / ln(1000.0)).toInt()
+    return String.format(
+        "%.1f %c",
+        count / 1000.0.pow(exp.toDouble()),
+        "kMGTPE"[exp - 1]
+    )
 }
 
 fun ConnectivityManager.isConnected(): Boolean {

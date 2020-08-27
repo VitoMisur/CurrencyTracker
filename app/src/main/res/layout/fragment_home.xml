@@ -63,6 +63,7 @@
             android:imeOptions="actionDone"
             android:inputType="numberDecimal"
             android:maxLines="1"
+            android:maxLength="10"
             android:textAppearance="@style/WelcomeTextAppearanceHuge"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorBlack"

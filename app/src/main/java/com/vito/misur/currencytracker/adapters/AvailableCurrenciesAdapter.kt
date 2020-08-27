@@ -40,9 +40,6 @@ class AvailableCurrenciesAdapter(private val favoritesCallback: FavoritesCallbac
                     resources.getString(
                         R.string.exchange_rate_prefix,
                         exchangeRate.toScaledDouble().toString(),
-                        /** Available in paid API
-                        exchangeRate.toScaledDouble().toString(),
-                         */
                         baseCurrency
                     )
             }
