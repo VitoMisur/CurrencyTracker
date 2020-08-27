@@ -1,4 +1,4 @@
-package com.vito.misur.currencytracker.network.data
+package com.vito.misur.currencytracker.database.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

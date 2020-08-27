@@ -1,8 +1,6 @@
 # CurrencyTracker
 Current conversion rates and converts currencies
-fixer.io FREE API used (all exchange rates apart from Euro are beeing calculated by dividing 2 exchange rates towards EUR)
-DOES NOT support Android API > 29 due to network policies
-Reasoning = Free API provides only HTTP requests
+fixer.io FREE API used (all exchange rates apart from Euro are being calculated by dividing 2 exchange rates towards EUR)
 Supports Online/Offline usage
 
 Technologies/Libraries used:

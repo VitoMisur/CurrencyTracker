@@ -4,6 +4,7 @@ import android.app.Application
 import com.vito.misur.currencytracker.di.appModule
 import com.vito.misur.currencytracker.di.networkModule
 import com.vito.misur.currencytracker.di.repositoryModule
+import com.vito.misur.currencytracker.di.viewModelModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -32,10 +33,8 @@ class App : Application() {
 
             modules(
                 listOf(
-                    /**
-                     * viewmodel module placed inside of app module for sake of having less empty classes
-                     */
                     appModule(),
+                    viewModelModule(),
                     networkModule(),
                     repositoryModule()
                 )

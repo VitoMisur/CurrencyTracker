@@ -2,10 +2,10 @@ package com.vito.misur.currencytracker.di
 
 import android.app.Application
 import com.vito.misur.currencytracker.database.AppDatabase
-import com.vito.misur.currencytracker.network.CurrencyAPIService
-import com.vito.misur.currencytracker.network.favorites.FavoritesRepository
-import com.vito.misur.currencytracker.network.home.HomeRepository
-import com.vito.misur.currencytracker.network.welcome.WelcomeRepository
+import com.vito.misur.currencytracker.network.api.CurrencyAPIService
+import com.vito.misur.currencytracker.repository.FavoritesRepository
+import com.vito.misur.currencytracker.repository.HomeRepository
+import com.vito.misur.currencytracker.repository.WelcomeRepository
 import org.koin.dsl.module
 
 fun repositoryModule() = module {

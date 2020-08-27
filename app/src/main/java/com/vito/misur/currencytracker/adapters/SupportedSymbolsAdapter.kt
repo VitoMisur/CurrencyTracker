@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.callback.ModalCallback
-import com.vito.misur.currencytracker.network.data.Currency
+import com.vito.misur.currencytracker.database.entity.Currency
 import kotlinx.android.synthetic.main.modal_item.view.*
 
 class SupportedSymbolsAdapter(private val modalCallBack: ModalCallback) :

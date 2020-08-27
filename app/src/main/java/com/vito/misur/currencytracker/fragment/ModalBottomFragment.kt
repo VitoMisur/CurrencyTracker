@@ -1,4 +1,4 @@
-package com.vito.misur.currencytracker.screen.welcome
+package com.vito.misur.currencytracker.fragment
 
 import android.os.Bundle
 import android.view.Gravity
@@ -12,7 +12,8 @@ import com.github.heyalex.handle.PullHandleView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.adapters.SupportedSymbolsAdapter
 import com.vito.misur.currencytracker.callback.ModalCallback
-import com.vito.misur.currencytracker.network.data.Currency
+import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
 import kotlinx.android.synthetic.main.modal_bottom.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -20,8 +21,6 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
  * Used instead of basic dropdown selector
  */
 class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
-
-    private val sharedWelcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
     companion object {
         const val SUPPORTED_CURRENCIES_LIST = "news_ticker_latest"
@@ -35,6 +34,8 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
             }
         }
     }
+
+    private val sharedWelcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
     private val supportedSymbols: List<Currency> by lazy {
         arguments?.getParcelableArrayList<Currency>(SUPPORTED_CURRENCIES_LIST)

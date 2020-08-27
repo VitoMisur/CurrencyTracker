@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_welcome"
-        android:name="com.vito.misur.currencytracker.screen.welcome.WelcomeFragment"
+        android:name="com.vito.misur.currencytracker.fragment.WelcomeFragment"
         tools:layout="@layout/fragment_welcome">
 
         <action
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/nav_favorites"
-        android:name="com.vito.misur.currencytracker.screen.favorites.FavoritesFragment"
+        android:name="com.vito.misur.currencytracker.fragment.FavoritesFragment"
         tools:layout="@layout/fragment_favorites">
 
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.vito.misur.currencytracker.screen.home.HomeFragment"
+        android:name="com.vito.misur.currencytracker.fragment.HomeFragment"
         tools:layout="@layout/fragment_home">
 
         <action

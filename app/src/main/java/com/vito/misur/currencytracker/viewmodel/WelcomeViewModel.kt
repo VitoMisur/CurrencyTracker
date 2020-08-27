@@ -1,14 +1,14 @@
-package com.vito.misur.currencytracker.screen.welcome
+package com.vito.misur.currencytracker.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.vito.misur.currencytracker.R
-import com.vito.misur.currencytracker.network.data.Currency
-import com.vito.misur.currencytracker.network.welcome.WelcomeRepository
-import com.vito.misur.currencytracker.screen.base.BaseModel.ErrorState
-import com.vito.misur.currencytracker.screen.base.BaseModel.LoadingState
-import com.vito.misur.currencytracker.screen.base.BaseViewModel
+import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.repository.WelcomeRepository
+import com.vito.misur.currencytracker.viewmodel.base.BaseModel.ErrorState
+import com.vito.misur.currencytracker.viewmodel.base.BaseModel.LoadingState
+import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

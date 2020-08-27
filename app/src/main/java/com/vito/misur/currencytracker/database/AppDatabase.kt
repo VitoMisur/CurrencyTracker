@@ -5,7 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.vito.misur.currencytracker.network.data.Currency
+import com.vito.misur.currencytracker.database.converters.Converters
+import com.vito.misur.currencytracker.database.dao.FavoriteCurrenciesDao
+import com.vito.misur.currencytracker.database.dao.SupportedCurrenciesDao
+import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 
 const val DATABASE_NAME = "currency-tracker-db"
 

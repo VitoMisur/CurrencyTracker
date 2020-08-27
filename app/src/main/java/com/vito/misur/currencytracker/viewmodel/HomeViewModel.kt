@@ -1,12 +1,12 @@
-package com.vito.misur.currencytracker.screen.home
+package com.vito.misur.currencytracker.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.vito.misur.currencytracker.database.FavoriteCurrency
-import com.vito.misur.currencytracker.network.home.HomeRepository
-import com.vito.misur.currencytracker.screen.base.BaseModel.*
-import com.vito.misur.currencytracker.screen.base.BaseViewModel
+import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
+import com.vito.misur.currencytracker.repository.HomeRepository
+import com.vito.misur.currencytracker.viewmodel.base.BaseModel.*
+import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

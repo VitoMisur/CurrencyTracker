@@ -1,4 +1,4 @@
-package com.vito.misur.currencytracker.screen.base
+package com.vito.misur.currencytracker.viewmodel.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

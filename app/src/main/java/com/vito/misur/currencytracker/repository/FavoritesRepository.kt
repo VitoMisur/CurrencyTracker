@@ -1,10 +1,10 @@
-package com.vito.misur.currencytracker.network.favorites
+package com.vito.misur.currencytracker.repository
 
 import com.vito.misur.currencytracker.custom.toScaledDouble
-import com.vito.misur.currencytracker.database.FavoriteCurrenciesDao
-import com.vito.misur.currencytracker.database.FavoriteCurrency
-import com.vito.misur.currencytracker.database.SupportedCurrenciesDao
-import com.vito.misur.currencytracker.network.CurrencyAPIService
+import com.vito.misur.currencytracker.database.dao.FavoriteCurrenciesDao
+import com.vito.misur.currencytracker.database.dao.SupportedCurrenciesDao
+import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
+import com.vito.misur.currencytracker.network.api.CurrencyAPIService
 
 class FavoritesRepository(
     private val currencyAPIService: CurrencyAPIService,

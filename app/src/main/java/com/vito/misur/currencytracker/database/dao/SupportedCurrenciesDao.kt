@@ -1,8 +1,8 @@
-package com.vito.misur.currencytracker.database
+package com.vito.misur.currencytracker.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.vito.misur.currencytracker.network.data.Currency
+import com.vito.misur.currencytracker.database.entity.Currency
 
 @Dao
 interface SupportedCurrenciesDao {

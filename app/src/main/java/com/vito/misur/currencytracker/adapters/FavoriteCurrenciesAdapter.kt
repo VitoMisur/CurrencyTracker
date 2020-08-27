@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.custom.FavoritesAdapterCallback
 import com.vito.misur.currencytracker.custom.toScaledDouble
-import com.vito.misur.currencytracker.database.FavoriteCurrency
+import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 import kotlinx.android.synthetic.main.home_item.view.*
 
 class FavoriteCurrenciesAdapter :

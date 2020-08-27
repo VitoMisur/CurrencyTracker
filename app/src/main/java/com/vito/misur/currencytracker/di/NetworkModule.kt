@@ -2,7 +2,7 @@ package com.vito.misur.currencytracker.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.vito.misur.currencytracker.baseUrl
-import com.vito.misur.currencytracker.network.CurrencyAPIService
+import com.vito.misur.currencytracker.network.api.CurrencyAPIService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level

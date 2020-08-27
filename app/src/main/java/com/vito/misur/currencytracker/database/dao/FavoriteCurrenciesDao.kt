@@ -1,6 +1,7 @@
-package com.vito.misur.currencytracker.database
+package com.vito.misur.currencytracker.database.dao
 
 import androidx.room.*
+import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 
 /**
  * Favorites Dao for Database interactions

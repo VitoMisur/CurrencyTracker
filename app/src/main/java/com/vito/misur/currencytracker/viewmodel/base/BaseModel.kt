@@ -1,8 +1,8 @@
-package com.vito.misur.currencytracker.screen.base
+package com.vito.misur.currencytracker.viewmodel.base
 
 import androidx.annotation.StringRes
-import com.vito.misur.currencytracker.database.FavoriteCurrency
-import com.vito.misur.currencytracker.network.data.Currency
+import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 
 /**
  * Application events

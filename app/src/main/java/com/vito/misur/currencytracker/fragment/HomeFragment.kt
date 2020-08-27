@@ -1,4 +1,4 @@
-package com.vito.misur.currencytracker.screen.home
+package com.vito.misur.currencytracker.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
+import com.vito.misur.currencytracker.activity.home.HomeFragmentDirections
 import com.vito.misur.currencytracker.adapters.FavoriteCurrenciesAdapter
 import com.vito.misur.currencytracker.custom.getString
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
-import com.vito.misur.currencytracker.screen.base.BaseModel
-import com.vito.misur.currencytracker.screen.welcome.ModalBottomFragment
-import com.vito.misur.currencytracker.screen.welcome.WelcomeViewModel
+import com.vito.misur.currencytracker.viewmodel.HomeViewModel
+import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
+import com.vito.misur.currencytracker.viewmodel.base.BaseModel
 import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel

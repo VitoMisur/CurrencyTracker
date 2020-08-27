@@ -1,4 +1,4 @@
-package com.vito.misur.currencytracker.network
+package com.vito.misur.currencytracker.network.api
 
 //import com.vito.misur.currencytracker.accessKey
 import com.vito.misur.currencytracker.network.data.Conversion

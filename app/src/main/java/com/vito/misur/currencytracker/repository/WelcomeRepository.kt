@@ -1,13 +1,30 @@
-package com.vito.misur.currencytracker.network.welcome
+package com.vito.misur.currencytracker.repository
 
-import com.vito.misur.currencytracker.database.SupportedCurrenciesDao
-import com.vito.misur.currencytracker.network.CurrencyAPIService
-import com.vito.misur.currencytracker.network.data.Currency
+import com.vito.misur.currencytracker.database.dao.SupportedCurrenciesDao
+import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.network.api.CurrencyAPIService
 
 class WelcomeRepository private constructor(
     private val currencyAPIService: CurrencyAPIService,
     private val supportedCurrenciesDao: SupportedCurrenciesDao
 ) {
+
+    companion object {
+        // For Singleton instantiation
+        @Volatile
+        private var instance: WelcomeRepository? = null
+
+        fun getInstance(
+            currencyAPIService: CurrencyAPIService,
+            supportedCurrenciesDao: SupportedCurrenciesDao
+        ) =
+            instance ?: synchronized(this) {
+                instance ?: WelcomeRepository(
+                    currencyAPIService,
+                    supportedCurrenciesDao
+                ).also { instance = it }
+            }
+    }
 
     private suspend fun getSupportedSymbolsFromServer() = currencyAPIService
         .getSupportedSymbolsAsync()
@@ -36,21 +53,4 @@ class WelcomeRepository private constructor(
 
     suspend fun setNewMainCurrency(currencyId: Long) =
         supportedCurrenciesDao.setAsMainCurrency(currencyId)
-
-    companion object {
-        // For Singleton instantiation
-        @Volatile
-        private var instance: WelcomeRepository? = null
-
-        fun getInstance(
-            currencyAPIService: CurrencyAPIService,
-            supportedCurrenciesDao: SupportedCurrenciesDao
-        ) =
-            instance ?: synchronized(this) {
-                instance ?: WelcomeRepository(
-                    currencyAPIService,
-                    supportedCurrenciesDao
-                ).also { instance = it }
-            }
-    }
 }

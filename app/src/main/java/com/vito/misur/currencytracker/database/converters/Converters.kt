@@ -1,4 +1,4 @@
-package com.vito.misur.currencytracker.database
+package com.vito.misur.currencytracker.database.converters
 
 import androidx.room.TypeConverter
 import org.joda.time.DateTime
