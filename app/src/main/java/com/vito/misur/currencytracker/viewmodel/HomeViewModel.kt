@@ -3,8 +3,8 @@ package com.vito.misur.currencytracker.viewmodel
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 import com.vito.misur.currencytracker.repository.HomeRepository
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.*
 import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +21,8 @@ class HomeViewModel(
         stateMutableLiveData.postValue(HomeConversionState)
     }
 
-    protected val favoriteCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrency>>()
-    val favoriteCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
+    protected val favoriteCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrencyItem>>()
+    val favoriteCurrenciesLiveData: LiveData<List<FavoriteCurrencyItem>>
         get() = favoriteCurrenciesMutableLiveData
 
     fun fetchFavoriteCurrencies() {

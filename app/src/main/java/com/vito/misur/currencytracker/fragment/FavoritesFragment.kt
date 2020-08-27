@@ -9,12 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
-import com.vito.misur.currencytracker.activity.favorites.FavoritesFragmentDirections
 import com.vito.misur.currencytracker.adapters.AvailableCurrenciesAdapter
 import com.vito.misur.currencytracker.callback.FavoritesCallback
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
-import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 import com.vito.misur.currencytracker.viewmodel.FavoritesViewModel
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
 import kotlinx.android.synthetic.main.error_layout.*
@@ -104,10 +103,11 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
         }
     }
 
-    override fun onFavoriteClick(favoriteCurrency: FavoriteCurrency) {
+    override fun onFavoriteClick(favoriteCurrencyItem: FavoriteCurrencyItem) {
         favoritesModel.fetchFavorite(
-            favoriteCurrency.favoriteCurrencyId,
-            !favoriteCurrency.isFavorite
+            favoriteCurrencyItem.favoriteCurrencyId,
+            !favoriteCurrencyItem.isFavorite,
+            searchEditText.text.toString().trim()
         )
     }
 }

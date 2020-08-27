@@ -1,9 +1,10 @@
 package com.vito.misur.currencytracker.repository
 
+import com.vito.misur.currencytracker.custom.convertToItemList
 import com.vito.misur.currencytracker.database.dao.FavoriteCurrenciesDao
 import com.vito.misur.currencytracker.database.dao.SupportedCurrenciesDao
-import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 import com.vito.misur.currencytracker.network.api.CurrencyAPIService
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 
 class HomeRepository(
     private val currencyAPIService: CurrencyAPIService,
@@ -30,8 +31,9 @@ class HomeRepository(
             }
     }
 
-    suspend fun getFavoriteCurrencies(): List<FavoriteCurrency> =
+    suspend fun getFavoriteCurrencies(): List<FavoriteCurrencyItem> =
         favoriteCurrenciesDao.updateFavoriteCurrenciesWithCalculatedValues(supportedCurrenciesDao.getMainCurrencySymbol())
+            .convertToItemList()
 
     fun getMainCurrencySymbol() =
         supportedCurrenciesDao.getMainCurrencySymbol()

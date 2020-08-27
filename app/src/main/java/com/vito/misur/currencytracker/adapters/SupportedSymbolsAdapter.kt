@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.callback.ModalCallback
-import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.view.data.CurrencyItem
 import kotlinx.android.synthetic.main.modal_item.view.*
 
 class SupportedSymbolsAdapter(private val modalCallBack: ModalCallback) :
-    ListAdapter<Currency, SupportedSymbolsAdapter.SupportedSymbolsViewHolder>(
+    ListAdapter<CurrencyItem, SupportedSymbolsAdapter.SupportedSymbolsViewHolder>(
         SupportedSymbolsAdapterCallback()
     ) {
 
-    class SupportedSymbolsAdapterCallback : DiffUtil.ItemCallback<Currency>() {
-        override fun areItemsTheSame(oldItem: Currency, newItem: Currency) =
+    class SupportedSymbolsAdapterCallback : DiffUtil.ItemCallback<CurrencyItem>() {
+        override fun areItemsTheSame(oldItem: CurrencyItem, newItem: CurrencyItem) =
             oldItem.name == newItem.name
 
-        override fun areContentsTheSame(oldItem: Currency, newItem: Currency) =
+        override fun areContentsTheSame(oldItem: CurrencyItem, newItem: CurrencyItem) =
             oldItem == newItem
     }
 

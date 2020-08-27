@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.database.entity.Currency
 import com.vito.misur.currencytracker.repository.WelcomeRepository
+import com.vito.misur.currencytracker.view.data.CurrencyItem
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.ErrorState
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.LoadingState
 import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
@@ -30,8 +31,8 @@ class WelcomeViewModel(
         }
     }
 
-    protected val supportedSymbolsMutableLiveData = MutableLiveData<List<Currency>>()
-    val supportedSymbolsLiveData: LiveData<List<Currency>>
+    protected val supportedSymbolsMutableLiveData = MutableLiveData<List<CurrencyItem>>()
+    val supportedSymbolsLiveData: LiveData<List<CurrencyItem>>
         get() = supportedSymbolsMutableLiveData
 
     fun fetchSupportedSymbols() {

@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.vito.misur.currencytracker.R
-import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 import com.vito.misur.currencytracker.repository.FavoritesRepository
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.EmptyState
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.LoadingState
 import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
@@ -19,17 +19,21 @@ class FavoritesViewModel(
     private val repository: FavoritesRepository
 ) : BaseViewModel(application) {
 
-    fun fetchFavorite(currencyId: Long, isFavorite: Boolean) {
+    fun fetchFavorite(currencyId: Long, isFavorite: Boolean, searchQuery: String) {
         launch {
             withContext(Dispatchers.IO) {
                 repository.fetchCurrencyFavoriteStatus(currencyId, isFavorite)
-                availableCurrenciesMutableLiveData.postValue(repository.getAvailableCurrenciesFromDatabase())
+                availableCurrenciesMutableLiveData.postValue(
+                    repository.getAvailableCurrenciesFromDatabaseFiltered(
+                        searchQuery
+                    )
+                )
             }
         }
     }
 
-    protected val availableCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrency>>()
-    val availableCurrenciesLiveData: LiveData<List<FavoriteCurrency>>
+    protected val availableCurrenciesMutableLiveData = MutableLiveData<List<FavoriteCurrencyItem>>()
+    val availableCurrenciesLiveData: LiveData<List<FavoriteCurrencyItem>>
         get() = availableCurrenciesMutableLiveData
 
     fun fetchAvailableCurrencies() {

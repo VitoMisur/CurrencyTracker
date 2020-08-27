@@ -6,7 +6,7 @@
     <string name="error_connection_required">Connection required\nfor the first run</string>
     <string name="error_empty_result_for_main_currency">Nothing found for specified currency: %1$s</string>
     <string name="hint">Euro</string>
-    <string name="hint_number">000.0</string>
+    <string name="hint_number">1.0</string>
     <string name="empty_currency_name_placeholder">XXX XXX XXX</string>
     <string name="empty_currency_symbol_placeholder">XXX</string>
     <string name="exchange_rate_prefix">≈ %1$s %2$s</string>

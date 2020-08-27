@@ -1,15 +1,15 @@
 package com.vito.misur.currencytracker.custom
 
 import androidx.recyclerview.widget.DiffUtil
-import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 
-class FavoritesAdapterCallback : DiffUtil.ItemCallback<FavoriteCurrency>() {
-    override fun areItemsTheSame(oldItem: FavoriteCurrency, newItem: FavoriteCurrency) =
+class FavoritesAdapterCallback : DiffUtil.ItemCallback<FavoriteCurrencyItem>() {
+    override fun areItemsTheSame(oldItem: FavoriteCurrencyItem, newItem: FavoriteCurrencyItem) =
         oldItem.favoriteCurrencyId == newItem.favoriteCurrencyId
 
-    override fun areContentsTheSame(oldItem: FavoriteCurrency, newItem: FavoriteCurrency) =
+    override fun areContentsTheSame(oldItem: FavoriteCurrencyItem, newItem: FavoriteCurrencyItem) =
         oldItem == newItem
 
-    override fun getChangePayload(oldItem: FavoriteCurrency, newItem: FavoriteCurrency) =
+    override fun getChangePayload(oldItem: FavoriteCurrencyItem, newItem: FavoriteCurrencyItem) =
         newItem
 }

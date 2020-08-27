@@ -2,7 +2,6 @@ package com.vito.misur.currencytracker.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import org.joda.time.DateTime
 
@@ -21,15 +20,6 @@ FavoriteCurrency(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var favoriteCurrencyId: Long = 0
-
-    @Ignore
-    var convertedAmount: Double = calculatedExchangeRate
-
-    fun setConvertedAmount(amount: String?) {
-        convertedAmount = (amount?.let {
-            calculatedExchangeRate * it.toDouble()
-        } ?: calculatedExchangeRate)
-    }
 
     fun calculateExchangeRate(requestedCurrencyEuroRate: Double) =
         exchangeRate / requestedCurrencyEuroRate

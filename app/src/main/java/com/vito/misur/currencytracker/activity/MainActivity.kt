@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.vito.misur.currencytracker.R
-import com.vito.misur.currencytracker.activity.home.HomeFragmentDirections
+import com.vito.misur.currencytracker.fragment.HomeFragmentDirections
 import org.koin.android.ext.android.inject
 
 const val FIRST_CURRENCY_SELECTION = "FIRST_CURRENCY_SELECTION"

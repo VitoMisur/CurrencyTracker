@@ -1,10 +1,12 @@
 package com.vito.misur.currencytracker.repository
 
+import com.vito.misur.currencytracker.custom.convertToItemList
 import com.vito.misur.currencytracker.custom.toScaledDouble
 import com.vito.misur.currencytracker.database.dao.FavoriteCurrenciesDao
 import com.vito.misur.currencytracker.database.dao.SupportedCurrenciesDao
 import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
 import com.vito.misur.currencytracker.network.api.CurrencyAPIService
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 
 class FavoritesRepository(
     private val currencyAPIService: CurrencyAPIService,
@@ -32,10 +34,12 @@ class FavoritesRepository(
     }
 
     fun getAvailableCurrenciesFromDatabase() =
-        favoriteCurrenciesDao.getAvailableCurrencies()
+        favoriteCurrenciesDao.getAvailableCurrencies().convertToItemList()
 
-    fun getAvailableCurrenciesFromDatabaseFiltered(searchQuery: String) =
-        favoriteCurrenciesDao.getAvailableCurrenciesFiltered("%$searchQuery%")
+    fun getAvailableCurrenciesFromDatabaseFiltered(searchQuery: String): List<FavoriteCurrencyItem> {
+        val currencyList = favoriteCurrenciesDao.getAvailableCurrenciesFiltered("%$searchQuery%")
+        return currencyList.convertToItemList()
+    }
 
     private suspend fun insertAvailableCurrenciesList(availableCurrencies: List<FavoriteCurrency>) =
         favoriteCurrenciesDao.repopulateFavorites(availableCurrencies)
@@ -50,7 +54,7 @@ class FavoritesRepository(
     fun fetchCurrencyFavoriteStatus(currencyId: Long, isFavorite: Boolean): Int =
         favoriteCurrenciesDao.setCurrencyAsFavorite(currencyId, isFavorite)
 
-    suspend fun getAvailableCurrencies(symbolList: List<String>? = null): List<FavoriteCurrency> {
+    suspend fun getAvailableCurrencies(symbolList: List<String>? = null): List<FavoriteCurrencyItem> {
         getAvailableCurrenciesFromServer().let { response ->
             response.exchangeRates?.let { exchangeRates ->
                 exchangeRates.map { exchangeRate ->

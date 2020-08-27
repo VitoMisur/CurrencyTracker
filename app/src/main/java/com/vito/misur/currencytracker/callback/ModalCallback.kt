@@ -1,7 +1,7 @@
 package com.vito.misur.currencytracker.callback
 
-import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.view.data.CurrencyItem
 
 interface ModalCallback {
-    fun onModalItemClick(currency: Currency)
+    fun onModalItemClick(supportedCurrencyItem: CurrencyItem)
 }

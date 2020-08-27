@@ -1,8 +1,10 @@
 package com.vito.misur.currencytracker.repository
 
+import com.vito.misur.currencytracker.custom.convertToCurrencyItemList
 import com.vito.misur.currencytracker.database.dao.SupportedCurrenciesDao
 import com.vito.misur.currencytracker.database.entity.Currency
 import com.vito.misur.currencytracker.network.api.CurrencyAPIService
+import com.vito.misur.currencytracker.view.data.CurrencyItem
 
 class WelcomeRepository private constructor(
     private val currencyAPIService: CurrencyAPIService,
@@ -34,9 +36,9 @@ class WelcomeRepository private constructor(
         supportedCurrenciesDao.insertNewCurrencies(currencyList)
 
     fun getSupportedSymbolsFromDatabase() =
-        supportedCurrenciesDao.getSupportedCurrencies()
+        supportedCurrenciesDao.getSupportedCurrencies().convertToCurrencyItemList()
 
-    suspend fun fetchSupportedSymbols(symbolList: List<String>? = null): List<Currency> {
+    suspend fun fetchSupportedSymbols(symbolList: List<String>? = null): List<CurrencyItem> {
         getSupportedSymbolsFromServer().apply {
             insertAllSupportedCurrencies(symbols.map {
                 Currency(

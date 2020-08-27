@@ -12,7 +12,7 @@ import com.github.heyalex.handle.PullHandleView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.adapters.SupportedSymbolsAdapter
 import com.vito.misur.currencytracker.callback.ModalCallback
-import com.vito.misur.currencytracker.database.entity.Currency
+import com.vito.misur.currencytracker.view.data.CurrencyItem
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
 import kotlinx.android.synthetic.main.modal_bottom.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -25,7 +25,7 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
     companion object {
         const val SUPPORTED_CURRENCIES_LIST = "news_ticker_latest"
 
-        fun newInstance(supportedSymbols: List<Currency>): ModalBottomFragment {
+        fun newInstance(supportedSymbols: List<CurrencyItem>): ModalBottomFragment {
             val args = Bundle().apply {
                 putParcelableArrayList(SUPPORTED_CURRENCIES_LIST, ArrayList(supportedSymbols))
             }
@@ -37,9 +37,9 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
 
     private val sharedWelcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
-    private val supportedSymbols: List<Currency> by lazy {
-        arguments?.getParcelableArrayList<Currency>(SUPPORTED_CURRENCIES_LIST)
-            ?: throw IllegalArgumentException("Fragment has to contain list of ${Currency::class.java.simpleName} argument")
+    private val supportedSymbols: List<CurrencyItem> by lazy {
+        arguments?.getParcelableArrayList<CurrencyItem>(SUPPORTED_CURRENCIES_LIST)
+            ?: throw IllegalArgumentException("Fragment has to contain list of ${CurrencyItem::class.java.simpleName} argument")
     }
 
     private val adapter: SupportedSymbolsAdapter by lazy {
@@ -81,8 +81,8 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
         }
     }
 
-    override fun onModalItemClick(currency: Currency) {
-        sharedWelcomeViewModel.fetchMainCurrency(currency.currencyId)
+    override fun onModalItemClick(currencyItem: CurrencyItem) {
+        sharedWelcomeViewModel.fetchMainCurrency(currencyItem.currencyId)
         dismissWithBehavior()
     }
 }

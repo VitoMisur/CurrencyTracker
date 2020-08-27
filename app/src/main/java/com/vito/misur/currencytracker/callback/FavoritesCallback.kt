@@ -1,7 +1,7 @@
 package com.vito.misur.currencytracker.callback
 
-import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 
 interface FavoritesCallback {
-    fun onFavoriteClick(favoriteCurrency: FavoriteCurrency)
+    fun onFavoriteClick(favoriteCurrencyItem: FavoriteCurrencyItem)
 }

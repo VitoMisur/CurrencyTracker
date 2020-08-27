@@ -1,8 +1,8 @@
 package com.vito.misur.currencytracker.viewmodel.base
 
 import androidx.annotation.StringRes
-import com.vito.misur.currencytracker.database.entity.Currency
-import com.vito.misur.currencytracker.database.entity.FavoriteCurrency
+import com.vito.misur.currencytracker.view.data.CurrencyItem
+import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 
 /**
  * Application events
@@ -19,15 +19,15 @@ sealed class BaseModel {
 
     // Model states used instead of basic function calls
     data class MainCurrencyState(
-        val currency: Currency
+        val currency: CurrencyItem
     ) : BaseModel()
 
     data class SupportedCurrenciesData(
-        val currencies: List<Currency>
+        val currencies: List<CurrencyItem>
     ) : BaseModel()
 
     data class FavoriteCurrenciesData(
-        val favoriteCurrencies: List<FavoriteCurrency>
+        val favoriteCurrencies: List<FavoriteCurrencyItem>
     ) : BaseModel()
 
     object HomeConversionState : BaseModel()

@@ -24,7 +24,7 @@ interface FavoriteCurrenciesDao {
      * @param searchQuery
      * @since Free fixer.io API has been used, base currency was removed
      */
-    @Query("SELECT * FROM favorite_currencies WHERE symbol OR name LIKE :searchQuery ORDER BY symbol")
+    @Query("SELECT * FROM favorite_currencies WHERE symbol LIKE :searchQuery OR name LIKE :searchQuery ORDER BY symbol")
     fun getAvailableCurrenciesFiltered(
         searchQuery: String
     ): List<FavoriteCurrency>

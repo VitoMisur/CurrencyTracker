@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.activity.FIRST_CURRENCY_SELECTION
-import com.vito.misur.currencytracker.activity.welcome.WelcomeFragmentDirections
+import com.vito.misur.currencytracker.custom.convertToCurrencyItem
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
@@ -48,7 +48,7 @@ class WelcomeFragment : Fragment() {
         welcomeViewModel.mainCurrencyLiveData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 render(
-                    BaseModel.MainCurrencyState(it)
+                    BaseModel.MainCurrencyState(it.convertToCurrencyItem())
                 )
             }
         })
