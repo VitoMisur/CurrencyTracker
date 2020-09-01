@@ -12,9 +12,9 @@ import org.koin.dsl.module
  */
 fun appModule() = module(override = true) {
 
-    single { provideSharedPrefs(get()) }
+    factory { provideSharedPrefs(get()) }
     single<SharedPreferences.Editor> { provideSharedPrefs(get()).edit() }
-    single { provideConnectivityManager(get()) }
+    factory { provideConnectivityManager(get()) }
 
 }
 

@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 ext {
-    appVersion = "0.0.0.1"
+    appVersion = "0.0.0.4"
 }
 
 android {
@@ -96,15 +96,11 @@ dependencies {
     // Timber
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
-    // JodaTime
+    // JodaTime consider moving to ThreeTen
     implementation "net.danlew:android.joda:$jodaVersion"
 
-    // GSON
+    // GSON consider moving to moshi
     implementation "com.google.code.gson:gson:$gsonVersion"
-
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Koin DI
     implementation "org.koin:koin-core:$koinVersion"
