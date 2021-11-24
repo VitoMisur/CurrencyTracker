@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 ext {
@@ -10,6 +10,11 @@ ext {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
+
+    androidExtensions {
+        experimental = true
+    }
+
     buildFeatures {
         dataBinding true
     }
@@ -38,6 +43,7 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+
     lintOptions {
         checkDependencies = true
         checkGeneratedSources = true
@@ -63,7 +69,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
     implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -109,6 +114,8 @@ dependencies {
 
 }
 
-tasks.withType(io.gitlab.arturbosch.detekt.Detekt) {
+// Groovy DSL
+tasks.withType(io.gitlab.arturbosch.detekt.Detekt).configureEach {
+    jvmTarget = "1.8"
     exclude(".*/tmp/.*,.*/build/.*,.*/resources/.*")
 }
