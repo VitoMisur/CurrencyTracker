@@ -20,7 +20,7 @@ buildscript {
         jodaVersion = "2.10.6.1"
         roomVersion = "2.3.0"
         gsonVersion = "2.8.6"
-        koinVersion = "2.0.1"
+        koinVersion = "2.2.3"
         glideVersion = "4.11.0"
         retrofitVersion = "2.9.0"
         okhttpLoggingVersion = '4.9.1'
@@ -30,6 +30,7 @@ buildscript {
 
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
 
@@ -58,6 +59,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 }

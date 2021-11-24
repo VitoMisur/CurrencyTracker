@@ -108,9 +108,9 @@ dependencies {
     implementation "com.google.code.gson:gson:$gsonVersion"
 
     // Koin DI
-    implementation "org.koin:koin-core:$koinVersion"
-    implementation "org.koin:koin-core-ext:$koinVersion"
-    implementation "org.koin:koin-android-viewmodel:$koinVersion"
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    implementation "io.insert-koin:koin-core-ext:$koinVersion"
+    implementation "io.insert-koin:koin-android-viewmodel:$koinVersion"
 
 }
 
