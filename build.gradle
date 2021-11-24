@@ -2,36 +2,39 @@
 buildscript {
     ext {
         minSdkVersion = 21
-        compileSdkVersion = 29
-        targetSdkVersion = 29
-        kotlinVersion = '1.4.0'
-        supportLibraryVersion = '1.2.0'
-        materialVersion = '1.2.0'
-        constraintLayoutVersion = '2.0.1'
-        ktxVersion = '1.3.1'
+        compileSdkVersion = 31
+        targetSdkVersion = 31
+        kotlinVersion = '1.5.31'
+        supportLibraryVersion = '1.4.0'
+        materialVersion = '1.4.0'
+        constraintLayoutVersion = '2.1.2'
+        ktxVersion = '1.7.0'
         timberVersion = '4.7.1'
-        recyclerViewVersion = '1.1.0'
+        recyclerViewVersion = '1.2.1'
         bottomDrawer = '1.0.0'
-        fragmentVersion = '1.3.0-alpha08'
-        lifecycleVersion = '2.2.0'
-        navigationVersion = '2.3.0'
+        fragmentVersion = '1.4.0'
+        lifecycleVersion = '2.4.0'
+        lifecycleExtensionsVersion = '2.2.0'
+        navigationVersion = '2.3.5'
         coroutinesVersion = "1.1.1"
         jodaVersion = "2.10.6.1"
-        roomVersion = "2.2.5"
+        roomVersion = "2.3.0"
         gsonVersion = "2.8.6"
         koinVersion = "2.0.1"
         glideVersion = "4.11.0"
         retrofitVersion = "2.9.0"
-        okhttpLoggingVersion = '4.7.2'
+        okhttpLoggingVersion = '4.9.1'
         detektVersion = "1.11.0"
         googleServiceVersion = "4.3.3"
     }
+
     repositories {
         google()
         jcenter()
     }
+
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.1"
+        classpath "com.android.tools.build:gradle:4.0.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.google.gms:google-services:$googleServiceVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
@@ -46,8 +49,9 @@ buildscript {
  * Can be applied with ' apply from: "$projectDir/detekt.gradle" ' in desired module.
  */
 plugins {
-    id "io.gitlab.arturbosch.detekt" version "$detektVersion"
+    id("io.gitlab.arturbosch.detekt").version("$detektVersion")
 }
+
 apply from: "$projectDir/detekt.gradle"
 
 allprojects {
