@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
@@ -16,16 +17,17 @@ import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
-import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WelcomeFragment : Fragment() {
 
-    private val sharedPreferences: SharedPreferences by inject()
-
-    private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+    private val welcomeViewModel: WelcomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

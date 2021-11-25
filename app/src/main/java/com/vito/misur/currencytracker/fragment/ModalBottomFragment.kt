@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.fragment.app.viewModels
 import com.github.heyalex.bottomdrawer.BottomDrawerDialog
 import com.github.heyalex.bottomdrawer.BottomDrawerFragment
 import com.github.heyalex.handle.PullHandleView
@@ -14,12 +15,13 @@ import com.vito.misur.currencytracker.adapters.SupportedSymbolsAdapter
 import com.vito.misur.currencytracker.callback.ModalCallback
 import com.vito.misur.currencytracker.view.data.CurrencyItem
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.modal_bottom.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 /** https://github.com/HeyAlex/BottomDrawer
  * Used instead of basic dropdown selector
  */
+@AndroidEntryPoint
 class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
 
     companion object {
@@ -35,7 +37,7 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
         }
     }
 
-    private val sharedWelcomeViewModel by sharedViewModel<WelcomeViewModel>()
+    private val sharedWelcomeViewModel: WelcomeViewModel by viewModels()
 
     private val supportedSymbols: List<CurrencyItem> by lazy {
         arguments?.getParcelableArrayList<CurrencyItem>(SUPPORTED_CURRENCIES_LIST)

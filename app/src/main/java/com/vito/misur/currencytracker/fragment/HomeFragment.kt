@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
@@ -17,15 +18,15 @@ import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.viewmodel.HomeViewModel
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val homeViewModel by viewModel<HomeViewModel>()
-    private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
+    private val homeViewModel: HomeViewModel by viewModels()
+    private val welcomeViewModel: WelcomeViewModel by viewModels()
 
     private val adapter: FavoriteCurrenciesAdapter by lazy {
         FavoriteCurrenciesAdapter()

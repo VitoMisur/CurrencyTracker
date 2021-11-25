@@ -10,12 +10,15 @@ import com.vito.misur.currencytracker.view.data.CurrencyItem
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.ErrorState
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.LoadingState
 import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class WelcomeViewModel(
+@HiltViewModel
+class WelcomeViewModel @Inject constructor(
     application: Application,
     private val repository: WelcomeRepository
 ) : BaseViewModel(application) {

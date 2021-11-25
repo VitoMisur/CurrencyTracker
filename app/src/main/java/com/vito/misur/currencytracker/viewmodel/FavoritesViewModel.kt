@@ -9,12 +9,15 @@ import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.EmptyState
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.LoadingState
 import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class FavoritesViewModel(
+@HiltViewModel
+class FavoritesViewModel @Inject constructor(
     application: Application,
     private val repository: FavoritesRepository
 ) : BaseViewModel(application) {

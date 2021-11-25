@@ -6,12 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.fragment.HomeFragmentDirections
-import org.koin.android.ext.android.inject
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 const val FIRST_CURRENCY_SELECTION = "FIRST_CURRENCY_SELECTION"
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val sharedPreferences: SharedPreferences by inject()
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)

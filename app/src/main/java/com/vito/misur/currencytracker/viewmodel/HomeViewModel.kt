@@ -7,15 +7,17 @@ import com.vito.misur.currencytracker.repository.HomeRepository
 import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.*
 import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     application: Application,
     private val repository: HomeRepository
-) :
-    BaseViewModel(application) {
+) : BaseViewModel(application) {
 
     fun fetchAmount() {
         stateMutableLiveData.postValue(HomeConversionState)
