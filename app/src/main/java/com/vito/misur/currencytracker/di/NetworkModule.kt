@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -21,6 +22,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
+    @Named("retro")
     fun provideRestApiRetrofit(): Retrofit = getRestApiRetrofit(
         httpClient = getRestOkHttpClient(),
         jsonConverterFactory = getJsonConverterFactory()
@@ -29,7 +31,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideCurrencyApiService(
-        retrofit: Retrofit
+        @Named("retro") retrofit: Retrofit
     ): CurrencyAPIService = getCurrencyApiService(retrofit)
 
     private fun getNetworkAuthorizationProvider() =
@@ -52,6 +54,6 @@ object NetworkModule {
         .build()
 
     // API
-    private fun getCurrencyApiService(retrofit: Retrofit) =
+    private fun getCurrencyApiService(@Named("retro") retrofit: Retrofit) =
         retrofit.create(CurrencyAPIService::class.java)
 }
