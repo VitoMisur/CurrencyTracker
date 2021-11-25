@@ -15,18 +15,24 @@ import com.vito.misur.currencytracker.custom.convertToCurrencyItem
 import com.vito.misur.currencytracker.custom.getString
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
+import com.vito.misur.currencytracker.di.factory.WelcomeFragmentAssistedFactory
 import com.vito.misur.currencytracker.viewmodel.HomeViewModel
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private val welcomeViewModel: WelcomeViewModel by viewModels()
+
+    @Inject
+    lateinit var welcomeViewModelFactory: WelcomeFragmentAssistedFactory
+
+    private val welcomeViewModel by lazy { welcomeViewModelFactory.create(WelcomeViewModel.ActivitySource.HOME) }
 
     private val adapter: FavoriteCurrenciesAdapter by lazy {
         FavoriteCurrenciesAdapter()

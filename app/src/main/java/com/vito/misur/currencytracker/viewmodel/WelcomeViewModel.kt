@@ -10,17 +10,18 @@ import com.vito.misur.currencytracker.view.data.CurrencyItem
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.ErrorState
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel.LoadingState
 import com.vito.misur.currencytracker.viewmodel.base.BaseViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
-import javax.inject.Inject
 
-@HiltViewModel
-class WelcomeViewModel @Inject constructor(
+//@HiltViewModel
+class WelcomeViewModel @AssistedInject constructor(
     application: Application,
-    private val repository: WelcomeRepository
+    private val repository: WelcomeRepository,
+    @Assisted val activitySource: ActivitySource,
 ) : BaseViewModel(application) {
 
     val mainCurrencyLiveData: LiveData<Currency?>
@@ -58,6 +59,12 @@ class WelcomeViewModel @Inject constructor(
         }.invokeOnCompletion {
             stateMutableLiveData.postValue(LoadingState(false))
         }
+    }
+
+    enum class ActivitySource {
+        WELCOME,
+        HOME,
+        FAVORITES,
     }
 
 }

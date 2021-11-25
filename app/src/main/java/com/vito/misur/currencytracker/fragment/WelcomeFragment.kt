@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
@@ -15,7 +14,8 @@ import com.vito.misur.currencytracker.activity.FIRST_CURRENCY_SELECTION
 import com.vito.misur.currencytracker.custom.convertToCurrencyItem
 import com.vito.misur.currencytracker.custom.gone
 import com.vito.misur.currencytracker.custom.visible
-import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
+import com.vito.misur.currencytracker.di.factory.WelcomeFragmentAssistedFactory
+import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel.ActivitySource.WELCOME
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.error_layout.*
@@ -27,7 +27,14 @@ class WelcomeFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-    private val welcomeViewModel: WelcomeViewModel by viewModels()
+
+    @Inject
+    lateinit var welcomeViewModelFactory: WelcomeFragmentAssistedFactory
+    private val welcomeViewModel by lazy { welcomeViewModelFactory.create(WELCOME) }
+
+    /*private val welcomeViewModel: WelcomeViewModel by viewModels {
+        welcomeViewModelFactory.create(WELCOME)
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
