@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "org.jetbrains.kotlin.kapt"
+apply plugin: 'kotlin-android-extensions'
 
 ext {
     appVersion = "0.0.0.4"
@@ -11,12 +13,8 @@ ext {
 android {
     compileSdkVersion rootProject.compileSdkVersion
 
-    androidExtensions {
-        experimental = true
-    }
-
     buildFeatures {
-        dataBinding true
+        viewBinding = true
     }
 
     defaultConfig {
@@ -25,9 +23,10 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled = true
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [
+                arguments += [
                         "room.schemaLocation"  : "$projectDir/schemas".toString(),
                         "room.incremental"     : "true",
                         "room.expandProjection": "true"]
@@ -61,6 +60,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 dependencies {
@@ -107,11 +110,10 @@ dependencies {
     // GSON consider moving to moshi
     implementation "com.google.code.gson:gson:$gsonVersion"
 
-    // Koin DI
-    implementation "org.koin:koin-core:$koinVersion"
-    implementation "org.koin:koin-core-ext:$koinVersion"
-    implementation "org.koin:koin-android-viewmodel:$koinVersion"
-
+    // Hilt DI
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+    implementation("androidx.multidex:multidex:$multidexVersion")
 }
 
 // Groovy DSL
