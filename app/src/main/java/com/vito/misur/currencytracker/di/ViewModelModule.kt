@@ -10,7 +10,13 @@ import org.koin.dsl.module
 fun viewModelModule() = module {
 
     viewModel(named("home")) { HomeViewModel(get(), get()) }
-    viewModel { WelcomeViewModel(get(), get()) }
+    viewModel { (activitySource: WelcomeViewModel.ActivitySource) ->
+        WelcomeViewModel(
+            get(),
+            get(),
+            activitySource
+        )
+    }
     viewModel { FavoritesViewModel(get(), get()) }
 
 }

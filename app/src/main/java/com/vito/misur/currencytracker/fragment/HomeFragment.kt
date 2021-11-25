@@ -21,12 +21,15 @@ import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 
 class HomeFragment : Fragment() {
 
     private val homeViewModel by viewModel<HomeViewModel>(qualifier = named("home"))
-    private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
+    private val welcomeViewModel by sharedViewModel<WelcomeViewModel> {
+        parametersOf(WelcomeViewModel.ActivitySource.HOME)
+    }
 
     private val adapter: FavoriteCurrenciesAdapter by lazy {
         FavoriteCurrenciesAdapter()

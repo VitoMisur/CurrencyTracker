@@ -20,12 +20,15 @@ import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.core.parameter.parametersOf
 
 class WelcomeFragment : Fragment() {
 
     private val sharedPreferences: SharedPreferences by inject()
 
-    private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
+    private val welcomeViewModel by sharedViewModel<WelcomeViewModel> {
+        parametersOf(WelcomeViewModel.ActivitySource.WELCOME)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

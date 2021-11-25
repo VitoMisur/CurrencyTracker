@@ -17,7 +17,8 @@ import java.net.UnknownHostException
 
 class WelcomeViewModel(
     application: Application,
-    private val repository: WelcomeRepository
+    private val repository: WelcomeRepository,
+    private val activitySource: ActivitySource
 ) : BaseViewModel(application) {
 
     val mainCurrencyLiveData: LiveData<Currency?>
@@ -55,6 +56,12 @@ class WelcomeViewModel(
         }.invokeOnCompletion {
             stateMutableLiveData.postValue(LoadingState(false))
         }
+    }
+
+    enum class ActivitySource {
+        WELCOME,
+        HOME,
+        FAVORITES,
     }
 
 }
