@@ -8,16 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
-import com.vito.misur.currencytracker.activity.FIRST_CURRENCY_SELECTION
 import com.vito.misur.currencytracker.custom.convertToCurrencyItem
-import com.vito.misur.currencytracker.custom.gone
-import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
-import kotlinx.android.synthetic.main.error_layout.*
-import kotlinx.android.synthetic.main.fragment_welcome.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -58,12 +52,12 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun initView() {
-        currencySymbol.text = resources.getString(R.string.empty_currency_name_placeholder)
-        currencyName.text = resources.getString(R.string.empty_currency_symbol_placeholder)
+//        currencySymbol.text = resources.getString(R.string.empty_currency_name_placeholder)
+//        currencyName.text = resources.getString(R.string.empty_currency_symbol_placeholder)
     }
 
     private fun render(model: BaseModel) {
-        when (model) {
+        /*when (model) {
             is BaseModel.SupportedCurrenciesData -> {
                 contentHolder?.visible()
                 errorHolder?.gone()
@@ -109,7 +103,7 @@ class WelcomeFragment : Fragment() {
                     currencyName.text = symbol
                 }
             }
-        }
+        }*/
     }
 
     private fun renderWarningAlert() = AlertDialog.Builder(requireContext())

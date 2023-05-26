@@ -4,21 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.adapters.FavoriteCurrenciesAdapter
 import com.vito.misur.currencytracker.custom.convertToCurrencyItem
-import com.vito.misur.currencytracker.custom.getString
-import com.vito.misur.currencytracker.custom.gone
-import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.viewmodel.HomeViewModel
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
-import kotlinx.android.synthetic.main.error_layout.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -73,7 +66,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
-        favoritesRecyclerView.adapter = adapter
+       /* favoritesRecyclerView.adapter = adapter
         favorites.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.toFavorites())
         }
@@ -83,11 +76,11 @@ class HomeFragment : Fragment() {
                 homeViewModel.fetchAmount()
             }
             false
-        }
+        }*/
     }
 
     private fun render(model: BaseModel) {
-        when (model) {
+        /*when (model) {
             is BaseModel.FavoriteCurrenciesData -> {
                 model.favoriteCurrencies.map { favCurrency ->
                     favCurrency.setConvertedAmount(amountToExchange?.text?.getString())
@@ -136,6 +129,6 @@ class HomeFragment : Fragment() {
                     notifyDataSetChanged()
                 }
             }
-        }
+        }*/
     }
 }

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.callback.ModalCallback
 import com.vito.misur.currencytracker.view.data.CurrencyItem
-import kotlinx.android.synthetic.main.modal_item.view.*
 
 class SupportedSymbolsAdapter(private val modalCallBack: ModalCallback) :
     ListAdapter<CurrencyItem, SupportedSymbolsAdapter.SupportedSymbolsViewHolder>(
@@ -33,13 +32,13 @@ class SupportedSymbolsAdapter(private val modalCallBack: ModalCallback) :
 
     override fun onBindViewHolder(holder: SupportedSymbolsViewHolder, position: Int) {
         holder.itemView.apply {
-            getItem(position).apply {
+            /*getItem(position).apply {
                 modalItemPlaceholder.setOnClickListener {
                     modalCallBack.onModalItemClick(this)
                 }
                 currencyName.text = symbol
                 currencySymbol.text = name
-            }
+            }*/
         }
     }
 }

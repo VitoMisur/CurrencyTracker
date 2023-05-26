@@ -14,7 +14,6 @@ import com.vito.misur.currencytracker.adapters.SupportedSymbolsAdapter
 import com.vito.misur.currencytracker.callback.ModalCallback
 import com.vito.misur.currencytracker.view.data.CurrencyItem
 import com.vito.misur.currencytracker.viewmodel.WelcomeViewModel
-import kotlinx.android.synthetic.main.modal_bottom.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 /** https://github.com/HeyAlex/BottomDrawer
@@ -25,22 +24,22 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
     companion object {
         const val SUPPORTED_CURRENCIES_LIST = "news_ticker_latest"
 
-        fun newInstance(supportedSymbols: List<CurrencyItem>): ModalBottomFragment {
+        /*fun newInstance(supportedSymbols: List<CurrencyItem>): ModalBottomFragment {
             val args = Bundle().apply {
                 putParcelableArrayList(SUPPORTED_CURRENCIES_LIST, ArrayList(supportedSymbols))
             }
             return ModalBottomFragment().apply {
                 arguments = args
             }
-        }
+        }*/
     }
 
     private val sharedWelcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
-    private val supportedSymbols: List<CurrencyItem> by lazy {
+    /*private val supportedSymbols: List<CurrencyItem> by lazy {
         arguments?.getParcelableArrayList<CurrencyItem>(SUPPORTED_CURRENCIES_LIST)
             ?: throw IllegalArgumentException("Fragment has to contain list of ${CurrencyItem::class.java.simpleName} argument")
-    }
+    }*/
 
     private val adapter: SupportedSymbolsAdapter by lazy {
         SupportedSymbolsAdapter(this)
@@ -57,8 +56,8 @@ class ModalBottomFragment : BottomDrawerFragment(), ModalCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        currencySearchRecyclerView.adapter = adapter
-        adapter.submitList(supportedSymbols)
+//        currencySearchRecyclerView.adapter = adapter
+//        adapter.submitList(supportedSymbols)
     }
 
     override fun configureBottomDrawer(): BottomDrawerDialog {

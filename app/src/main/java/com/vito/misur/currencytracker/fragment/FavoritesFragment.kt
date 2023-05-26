@@ -4,22 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.vito.misur.currencytracker.R
 import com.vito.misur.currencytracker.adapters.AvailableCurrenciesAdapter
 import com.vito.misur.currencytracker.callback.FavoritesCallback
-import com.vito.misur.currencytracker.custom.gone
-import com.vito.misur.currencytracker.custom.visible
 import com.vito.misur.currencytracker.view.data.FavoriteCurrencyItem
 import com.vito.misur.currencytracker.viewmodel.FavoritesViewModel
 import com.vito.misur.currencytracker.viewmodel.base.BaseModel
-import kotlinx.android.synthetic.main.error_layout.*
-import kotlinx.android.synthetic.main.fragment_favorites.*
-import kotlinx.android.synthetic.main.fragment_favorites.headerHolder
-import kotlinx.android.synthetic.main.search_holder.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment(), FavoritesCallback {
@@ -51,7 +43,7 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
     }
 
     private fun initView() {
-        currencySearchRecyclerView.adapter = adapter
+        /*currencySearchRecyclerView.adapter = adapter
         confirmButton.setOnClickListener {
             findNavController().navigate(FavoritesFragmentDirections.toHome())
         }
@@ -67,11 +59,11 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
                 )
             }
             false
-        }
+        }*/
     }
 
     private fun render(model: BaseModel) {
-        when (model) {
+        /*when (model) {
             is BaseModel.FavoriteCurrenciesData -> {
                 adapter.submitList(model.favoriteCurrencies)
                 currencySearchRecyclerView?.visible()
@@ -100,14 +92,14 @@ class FavoritesFragment : Fragment(), FavoritesCallback {
                     model.currencySymbol
                 )
             }
-        }
+        }*/
     }
 
     override fun onFavoriteClick(favoriteCurrencyItem: FavoriteCurrencyItem) {
-        favoritesModel.fetchFavorite(
+        /*favoritesModel.fetchFavorite(
             favoriteCurrencyItem.favoriteCurrencyId,
             !favoriteCurrencyItem.isFavorite,
             searchEditText.text.toString().trim()
-        )
+        )*/
     }
 }
