@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.vito.misur.currencytracker"
+        namespace 'com.vito.misur.currencytracker'
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
@@ -44,10 +44,6 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
-    lintOptions {
-        checkDependencies = true
-        checkGeneratedSources = true
-    }
 
     buildTypes {
         debug {
@@ -60,6 +56,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    lint {
+        checkDependencies true
+        checkGeneratedSources true
     }
 }
 

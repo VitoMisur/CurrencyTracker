@@ -4,7 +4,7 @@ buildscript {
         minSdkVersion = 27
         compileSdkVersion = 33
         targetSdkVersion = 33
-        kotlinVersion = '1.5.31'
+        kotlinVersion = '1.6.21'
         supportLibraryVersion = '1.4.0'
         materialVersion = '1.4.0'
         constraintLayoutVersion = '2.1.2'
@@ -15,7 +15,7 @@ buildscript {
         fragmentVersion = '1.4.0'
         lifecycleVersion = '2.4.0'
         lifecycleExtensionsVersion = '2.2.0'
-        navigationVersion = '2.3.5'
+        navigationVersion = '2.4.1'
         coroutinesVersion = "1.1.1"
         jodaVersion = "2.10.6.1"
         roomVersion = "2.3.0"
@@ -25,7 +25,7 @@ buildscript {
         retrofitVersion = "2.9.0"
         okhttpLoggingVersion = '4.9.1'
         detektVersion = "1.11.0"
-        googleServiceVersion = "4.3.3"
+        googleServiceVersion = '4.3.10'
     }
 
     repositories {
@@ -34,7 +34,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.2"
+        classpath 'com.android.tools.build:gradle:8.2.0-alpha05'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.google.gms:google-services:$googleServiceVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
