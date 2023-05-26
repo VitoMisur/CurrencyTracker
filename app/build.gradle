@@ -79,7 +79,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
+    kps "androidx.room:room-compiler:$roomVersion"
 
     // Kotlin coroutines
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
