@@ -4,7 +4,7 @@ buildscript {
         minSdkVersion = 27
         compileSdkVersion = 33
         targetSdkVersion = 33
-        kotlinVersion = '1.6.21'
+        kotlinVersion = '1.8.21'
         supportLibraryVersion = '1.4.0'
         materialVersion = '1.4.0'
         constraintLayoutVersion = '2.1.2'
